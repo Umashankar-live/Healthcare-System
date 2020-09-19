@@ -2,31 +2,51 @@ package com.cg.bean;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "APPOINTMENTS")
 public class Appointment {
-	
+
 	@Id
-	Integer appointmentId ;
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer appointmentId;
+
 	@OneToOne
-	@Column(name = "USER")
-	User user ;
-	
+	@JoinColumn(name = "User_ID")
+	private User user;
+
 	@OneToOne
-	@Column(name = "TEST")
-	Test test ;
-	
-	Boolean approved ;
-	
-	LocalDate date;
-	 
-	LocalTime time ;
+	@JoinColumn(name = "Test_ID")
+	private Tests test;
+
+	@Column(name = "Status")
+	private Boolean approved;
+
+	@Column(name = "Date")
+	private LocalDate date;
+
+	@Column(name = "Time")
+	private LocalTime time;
+
+	public Appointment() {
+
+	}
+
+	public Tests getTest() {
+		return test;
+	}
+
+	public void setTest(Tests test) {
+		this.test = test;
+	}
 
 	public Integer getAppointmentId() {
 		return appointmentId;
@@ -42,14 +62,6 @@ public class Appointment {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public Test getTest() {
-		return test;
-	}
-
-	public void setTest(Test test) {
-		this.test = test;
 	}
 
 	public Boolean getApproved() {
@@ -75,8 +87,5 @@ public class Appointment {
 	public void setTime(LocalTime time) {
 		this.time = time;
 	}
-	 
-	 
-	
 
 }

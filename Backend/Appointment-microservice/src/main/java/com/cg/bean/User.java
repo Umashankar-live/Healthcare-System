@@ -3,6 +3,8 @@ package com.cg.bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,6 +13,7 @@ import javax.persistence.Table;
 public class User {
 	@Id
 	@Column(name = "User_Id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userId;
 
 	@Column(name = "User_Name")
@@ -32,19 +35,7 @@ public class User {
 	private String gender;
 
 	public User() {
-		
-	}
 
-	public User(Integer userId, String userName, String password, String role, String email, String phoneNo,
-			String gender) {
-		super();
-		this.userId = userId;
-		this.userName = userName;
-		this.password = password;
-		this.role = role;
-		this.email = email;
-		this.phoneNo = phoneNo;
-		this.gender = gender;
 	}
 
 	public Integer getUserId() {
