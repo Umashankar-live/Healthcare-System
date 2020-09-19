@@ -1,4 +1,3 @@
-
 package com.cg.bean;
 
 import javax.persistence.Column;
@@ -6,11 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "User_MASTER")
-public class User {
+public class UsersOfSystem {
+
 	@Id
 	@Column(name = "User_Id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,10 +31,6 @@ public class User {
 
 	@Column(name = "Gender")
 	private String gender;
-
-	public User() {
-
-	}
 
 	public Integer getUserId() {
 		return userId;

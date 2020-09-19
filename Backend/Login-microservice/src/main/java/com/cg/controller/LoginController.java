@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.bean.Login;
-import com.cg.bean.User;
+import com.cg.bean.UsersOfSystem;
 import com.cg.service.LoginService;
 
 /*
@@ -32,8 +32,8 @@ public class LoginController {
 
 	// http://localhost:8037/login/validate
 	@RequestMapping(value = "/validate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public User validate(@RequestBody Login login) {
-		User user = service.validate(login);
+	public UsersOfSystem validate(@RequestBody Login login) {
+		UsersOfSystem user = service.validate(login);
 		return user;
 	}
 

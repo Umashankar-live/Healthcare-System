@@ -1,10 +1,10 @@
 package com.cg.service;
 
 import com.cg.bean.Login;
-import com.cg.bean.User;
+import com.cg.bean.UsersOfSystem;
 
 public interface LoginService {
 
-	public User validate(Login login);
+	public UsersOfSystem validate(Login login);
 
 }

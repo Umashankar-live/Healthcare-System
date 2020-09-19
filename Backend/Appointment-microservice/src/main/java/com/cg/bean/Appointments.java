@@ -2,18 +2,18 @@ package com.cg.bean;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "APPOINTMENTS")
-public class Appointment {
+public class Appointments {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,11 +21,22 @@ public class Appointment {
 
 	@OneToOne
 	@JoinColumn(name = "User_ID")
-	private User user;
+	private UsersOfSystem user;
 
 	@OneToOne
 	@JoinColumn(name = "Test_ID")
 	private Tests test;
+
+	@ManyToOne
+	private DiagnosticCenters center;
+	
+	public DiagnosticCenters getCenter() {
+		return center;
+	}
+
+	public void setCenter(DiagnosticCenters center) {
+		this.center = center;
+	}
 
 	@Column(name = "Status")
 	private Boolean approved;
@@ -35,10 +46,6 @@ public class Appointment {
 
 	@Column(name = "Time")
 	private LocalTime time;
-
-	public Appointment() {
-
-	}
 
 	public Tests getTest() {
 		return test;
@@ -56,11 +63,11 @@ public class Appointment {
 		this.appointmentId = appointmentId;
 	}
 
-	public User getUser() {
+	public UsersOfSystem getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UsersOfSystem user) {
 		this.user = user;
 	}
 

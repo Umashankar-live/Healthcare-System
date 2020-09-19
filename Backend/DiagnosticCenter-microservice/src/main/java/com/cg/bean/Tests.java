@@ -7,19 +7,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TEST")
-public class Test {
-
+@Table(name = "Tests")
+public class Tests {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	Integer testId;
-	String testName;
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int testId;
+	
+	private String testName;
 
-	public Integer getTestId() {
+	public int getTestId() {
 		return testId;
 	}
 
-	public void setTestId(Integer testId) {
+	public void setTestId(int testId) {
 		this.testId = testId;
 	}
 
