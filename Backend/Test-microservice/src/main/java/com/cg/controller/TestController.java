@@ -17,33 +17,33 @@ import com.cg.service.TestServiceInterface;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping(value = "/test")
+@RequestMapping(value = "/admin/test")
 public class TestController {
 
 	@Autowired
 	private TestServiceInterface testService;
 
-	@RequestMapping(value = "/add-Test", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/addTest", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Tests addHotel(@RequestBody Tests test) {
-		return this.testService.addtest(test);
+		return this.testService.addTest(test);
 	}
 
-	@GetMapping(value = "/list-Tests")
+	@GetMapping(value = "/getAllTests")
 	public List<Tests> getAllTest() {
 		return this.testService.getAllTest();
 	}
 
-	@RequestMapping(value = "/delete-test/{testId}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/deleteTest/{testId}", method = RequestMethod.DELETE)
 	public void deleteTest(@PathVariable Integer testId) {
-		this.testService.deletetest(testId);
+		this.testService.deleteTest(testId);
 	}
 
-	@GetMapping(value = "/search-TestById/{testId}")
+	@GetMapping(value = "/searchTest/{testId}")
 	public Tests searchHotelById(@PathVariable Integer testId) {
 		return this.testService.searchTest(testId);
 	}
 	
-	@RequestMapping(value = "/update-Test/{testId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/updateTest/{testId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Tests updateHotel(@RequestBody Tests test) {
 		return this.testService.updateTest(test);
 	}

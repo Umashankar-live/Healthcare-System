@@ -6,9 +6,9 @@ import com.cg.bean.Tests;
 
 public interface TestServiceInterface {
 
-	public Tests addtest(Tests test);
+	public Tests addTest(Tests test);
 
-	public void deletetest(Integer testId);
+	public void deleteTest(Integer testId);
 
 	public Tests searchTest(Integer testId);
 
