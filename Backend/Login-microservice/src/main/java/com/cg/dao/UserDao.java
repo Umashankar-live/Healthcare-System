@@ -8,4 +8,8 @@ import com.cg.bean.UsersOfSystem;
 @Repository
 public interface UserDao extends JpaRepository<UsersOfSystem, Integer> {
 
+	UsersOfSystem findByUserName(String userName);
+
+	UsersOfSystem findByUserNameAndPassword(String tempUsername, String tempPassword);
+
 }

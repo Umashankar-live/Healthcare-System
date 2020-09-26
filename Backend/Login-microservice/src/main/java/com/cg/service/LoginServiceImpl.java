@@ -28,4 +28,24 @@ public class LoginServiceImpl implements LoginService {
 		return null;
 	}
 
+	@Override
+	public UsersOfSystem getUserByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return userDao.findByUserName(userName);
+		 
+	}
+
+	@Override
+	public UsersOfSystem addUser(UsersOfSystem user) {
+		// TODO Auto-generated method stub
+		user.setRole("Customer");
+		return userDao.save(user);
+	}
+
+	@Override
+	public UsersOfSystem getUserByUserNameAndPassword(String tempUsername, String tempPassword) {
+		// TODO Auto-generated method stub
+		return userDao.findByUserNameAndPassword(tempUsername,tempPassword);
+	}
+
 }

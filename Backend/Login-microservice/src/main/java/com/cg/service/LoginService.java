@@ -6,5 +6,8 @@ import com.cg.bean.UsersOfSystem;
 public interface LoginService {
 
 	public UsersOfSystem validate(Login login);
+	public UsersOfSystem getUserByUserName(String userName);
+	public UsersOfSystem addUser(UsersOfSystem user);
+	public UsersOfSystem getUserByUserNameAndPassword(String tempUsername, String tempPassword);
 
 }

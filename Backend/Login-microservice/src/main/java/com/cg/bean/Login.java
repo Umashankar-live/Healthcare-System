@@ -1,7 +1,7 @@
 package com.cg.bean;
 
 public class Login {
-	private String name;
+	private String username;
 	private String password;
 
 	public Login() {
@@ -10,16 +10,16 @@ public class Login {
 
 	public Login(String name, String password) {
 		super();
-		this.name = name;
+		this.username = name;
 		this.password = password;
 	}
 
 	public String getName() {
-		return name;
+		return username;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.username = name;
 	}
 
 	public String getPassword() {
