@@ -39,4 +39,10 @@ public class TestServiceImpl implements TestServiceInterface {
 		return this.testDao.save(test);
 	}
 
+	@Override
+	public long countTests() {
+		return this.testDao.count();
+		
+	}
+
 }

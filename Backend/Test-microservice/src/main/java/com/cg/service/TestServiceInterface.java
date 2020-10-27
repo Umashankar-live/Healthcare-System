@@ -16,4 +16,6 @@ public interface TestServiceInterface {
 	
 	public Tests updateTest(Tests test);
 
+	public long countTests();
+
 }

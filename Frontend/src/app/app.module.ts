@@ -1,23 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
-import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 
-const routes : Routes = [
-  {path:'login', component:LoginComponent},
-  {path:'admin', component:AdminComponent},
-  {path:'user', component:UserComponent},
-  {path:'register', component:RegisterComponent},
-  {path : "" , redirectTo : "login" , pathMatch : "full"},
-  {path:'*', redirectTo:'login', pathMatch:"full"},
-] 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgxPaginationModule} from 'ngx-pagination';
+import { AppRoutingModule } from './app-routing.module';
+import { AdminComponent } from './admin/admin.component';
+import { RegisterComponent } from './register/register.component';
+import { CustomerComponent } from './customer/customer.component';
+import { AddTestComponent } from './add-test/add-test.component';
+import { ListTestComponent } from './list-test/list-test.component';
+import { AddCenterComponent } from './add-center/add-center.component';
+import { ListCenterComponent } from './list-center/list-center.component';
+import { ListAppointmentsComponent } from './list-appointments/list-appointments.component';
+import { ShowCenterDetailsComponent } from 'src/show-center-details/show-center-details.component';
+import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +28,28 @@ const routes : Routes = [
     LoginComponent,
     AdminComponent,
     UserComponent,
-    RegisterComponent
+    RegisterComponent,
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    CustomerComponent,
+    AddTestComponent,
+    ListTestComponent,
+    AddCenterComponent,
+    ListCenterComponent,
+    ListAppointmentsComponent,
+    ShowCenterDetailsComponent,
+    AdminDashBoardComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(routes),
-    HttpClientModule
+    RouterModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    NgxPaginationModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

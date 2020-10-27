@@ -38,4 +38,9 @@ public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 		return this.dao.save(center);
 	}
 
+	@Override
+	public long countCenters() {
+		return dao.count();
+	}
+
 }

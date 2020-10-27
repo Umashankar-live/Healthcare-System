@@ -18,4 +18,6 @@ public interface DiagnosticCenterService {
 	
 	public DiagnosticCenters updateCenter(DiagnosticCenters center);
 
+	public long countCenters();
+
 }

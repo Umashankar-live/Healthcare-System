@@ -1,0 +1,52 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <!------ Include the above in your HEAD tag ---------->
+  
+  <head>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet"/>
+  </head>
+  <body>
+      <div class="container-fluid">
+          <div class="row">    
+              <div id="admin-sidebar" class="col-md-2 p-x-0 p-y-3">
+                  <ul class="sidenav admin-sidenav list-unstyled">
+                      <li><a routerLink = "/add-test">Add Tests</a></li>
+                      <li><a routerLink = "/list-test">Show Tests</a></li>
+                      <li><a routerLink = "/add-center">Add Diagnostic Centers</a></li>
+                      <li><a routerLink = "/list-center">Show Diagnostic Centers </a></li>
+                      <li><a routerLink = "/list-appointments">Show All Appointments </a></li>
+                      <li><a (click)="logout()">Logout</a></li>
+                      <!-- <li><a href="#">NavLink 6</a></li>                   -->
+                  </ul>
+              </div> <!-- /#admin-sidebar -->
+
+              <div id="admin-main-control" class="col-md-10 p-x-3 p-y-1">
+                <!-- <div class="content-title m-x-auto">
+                    <i class="Welcome admin!"></i> Dashboard
+                </div>
+                <p class="display-4">Dashboard-y Things</p> -->
+
+                 <!-- Enter the code here -->
+                 <h2>Center Name : {{centerNames}}</h2>
+
+                <h2>Tests Available</h2>
+                <table class="table table-striped custab">
+                  <tr>
+                    <th>Test Id </th>
+                    <th>Test Name </th>
+                  </tr>
+
+                  <tr *ngFor="let test of tests ">
+                  <td>{{test.testId}}</td>
+                  <td>{{test.testName}}</td>
+                </tr>
+                </table>
+                
+            </div>  
+
+          </div> <!-- /.row -->
+      </div> <!-- /.container-fluid -->
+  </body>
+
+

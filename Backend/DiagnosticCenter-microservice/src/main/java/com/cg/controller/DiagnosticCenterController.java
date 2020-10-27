@@ -51,4 +51,9 @@ public class DiagnosticCenterController {
 	public DiagnosticCenters updateHotel(@RequestBody DiagnosticCenters center) {
 		return this.service.updateCenter(center);
 	}
+	
+	@GetMapping(value = "/countCenter")
+	public long countAssets() {
+		return this.service.countCenters();
+	}
 }

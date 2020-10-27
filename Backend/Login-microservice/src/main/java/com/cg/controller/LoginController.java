@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cg.bean.Login;
 import com.cg.bean.UsersOfSystem;
 import com.cg.service.LoginService;
 
@@ -53,8 +54,8 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public UsersOfSystem loginUser(@RequestBody UsersOfSystem user) throws Exception {
-		String tempUsername = user.getUserName();
+	public UsersOfSystem loginUser(@RequestBody Login user) throws Exception {
+		String tempUsername = user.getName();
 		String tempPassword = user.getPassword();
 		UsersOfSystem userObj = null;
 		if (tempUsername != null && tempPassword != null) {

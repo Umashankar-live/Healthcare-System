@@ -43,10 +43,15 @@ public class TestController {
 	public Tests searchHotelById(@PathVariable Integer testId) {
 		return this.testService.searchTest(testId);
 	}
-	
+
 	@RequestMapping(value = "/updateTest/{testId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Tests updateHotel(@RequestBody Tests test) {
 		return this.testService.updateTest(test);
 	}
-	
+
+	@GetMapping(value = "/countTest")
+	public long countAssets() {
+		return testService.countTests();
+	}
+
 }
