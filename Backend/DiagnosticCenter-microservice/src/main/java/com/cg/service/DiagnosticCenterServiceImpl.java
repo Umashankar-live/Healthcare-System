@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cg.bean.DiagnosticCenters;
 import com.cg.dao.DiagnosticCenterDao;
+
 @Service
 public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 

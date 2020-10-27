@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,12 +25,14 @@ public class DiagnosticCenterController {
 	@Autowired
 	private DiagnosticCenterService service;
 	
-	@RequestMapping(value = "/addCenter", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/addCenter", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public DiagnosticCenters addHotel(@RequestBody DiagnosticCenters center) {
+		System.out.println(center.getCenterName());
+		System.out.println(center.getListOfTests().size());
 		return this.service.addCenter(center);
 	}
 	
-	@GetMapping(value = "/allCenters")
+	@GetMapping(value = "/getAllCenters")
 	public List<DiagnosticCenters> getAllTest() {
 		return this.service.getAllCenter();
 	}
