@@ -50,7 +50,7 @@ public class TestController {
 	}
 
 	@GetMapping(value = "/countTest")
-	public long countAssets() {
+	public long countTests() {
 		return testService.countTests();
 	}
 

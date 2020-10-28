@@ -29,33 +29,9 @@ public class LoginController {
 	@Autowired
 	private LoginService service;
 
-	// http://localhost:8037/login/validate
-//	@RequestMapping(value = "/validate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public UsersOfSystem validate(@RequestBody Login login) {
-//		UsersOfSystem user = service.validate(login);
-//		return user;
-//	}
-
-	@RequestMapping(value = "/registeruser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public UsersOfSystem addUser(@RequestBody UsersOfSystem user) throws Exception {
-
-		String tempUserName = user.getUserName();
-		if (tempUserName != null && !"".equals(tempUserName)) {
-			UsersOfSystem userObj = service.getUserByUserName(tempUserName);
-			if (userObj != null) {
-				throw new Exception("User with username " + tempUserName + " already exist!");
-			}
-
-		}
-		UsersOfSystem userObj = null;
-		userObj = service.addUser(user);
-
-		return userObj;
-	}
-
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public UsersOfSystem loginUser(@RequestBody Login user) throws Exception {
-		String tempUsername = user.getName();
+		String tempUsername = user.getUserName();
 		String tempPassword = user.getPassword();
 		UsersOfSystem userObj = null;
 		if (tempUsername != null && tempPassword != null) {

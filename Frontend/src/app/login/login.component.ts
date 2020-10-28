@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
     if (form.valid) {
       let login = new Login();
 
-      login.name = this.userName
+      login.userName = this.userName
       login.password = this.password
       this.loginservice.loginUser(login).subscribe(
         res => {
@@ -111,7 +111,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('userType', window.btoa("admin"))
             this.router.navigate(['admin/dashboard'])
           }
-          else if (res.role == "user") {
+          else if (res.role == "User") {
             localStorage.setItem('userName', window.btoa(res.userName))
             localStorage.setItem('userType', window.btoa("user"))
             this.router.navigate(['user'])

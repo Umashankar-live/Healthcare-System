@@ -35,14 +35,14 @@ export class AdminDashBoardComponent implements OnInit {
     this.testService.countTest().subscribe(
       res => {
         this.testCount = res
-        this.isLoadingCenters = false
+        this.isLoadingCount = false
       }
     )
 
     this.centerService.countCenter().subscribe(
       res => {
         this.centerCount = res
-        this.isLoadingCount = false
+        this.isLoadingCenters = false
       }
     )
 

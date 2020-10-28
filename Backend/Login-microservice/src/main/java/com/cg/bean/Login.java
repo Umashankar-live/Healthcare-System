@@ -1,25 +1,20 @@
 package com.cg.bean;
 
 public class Login {
-	private String username;
+	
+	private String userName;
 	private String password;
 
 	public Login() {
-		
+
 	}
 
-	public Login(String name, String password) {
-		super();
-		this.username = name;
-		this.password = password;
+	public String getUserName() {
+		return userName;
 	}
 
-	public String getName() {
-		return username;
-	}
-
-	public void setName(String name) {
-		this.username = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -29,5 +24,7 @@ public class Login {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	
 
 }

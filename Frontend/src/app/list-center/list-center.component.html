@@ -1,52 +1,67 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-  <!------ Include the above in your HEAD tag ---------->
-  
-  <head>
-      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet"/>
-  </head>
-  <body>
-      <div class="container-fluid">
-          <div class="row">    
-              <div id="admin-sidebar" class="col-md-2 p-x-0 p-y-3">
-                  <ul class="sidenav admin-sidenav list-unstyled">
-                      <li><a routerLink = "/add-test">Add Tests</a></li>
-                      <li><a routerLink = "/list-test">Show Tests</a></li>
-                      <li><a routerLink = "/add-center">Add Diagnostic Centers</a></li>
-                      <li><a routerLink = "/list-center">Show Diagnostic Centers </a></li>
-                      <li><a routerLink = "/list-appointments">Show All Appointments </a></li>
-                      <li><a (click)="logout()">Logout</a></li>
-                      <!-- <li><a href="#">NavLink 6</a></li>                   -->
-                  </ul>
-              </div> <!-- /#admin-sidebar -->
-
-              <div id="admin-main-control" class="col-md-10 p-x-3 p-y-1">
-                <!-- <div class="content-title m-x-auto">
-                    <i class="Welcome admin!"></i> Dashboard
+<div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <h1 class="text-center"><i class="fas fa-clinic-medical"
+            ></i> Diagnostic Centers</h1>
+        </div>
+        <div style="overflow-x: auto;">
+          <div class="container">
+            <div class="form-group float-left">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">
+                    <i class="fa fa-search"></i>
+                  </span>
                 </div>
-                <p class="display-4">Dashboard-y Things</p> -->
+                <input (keyup)="onKey($event)" class="form-control" placeholder="Search Center By Name..." />
+              </div>
+            </div>
+          </div>
+          <!-- <div class="alert alert-danger" *ngIf='isDeleteError'>
+              <button href="#" class="close" (click)='isDeleteError = false'>&times;</button>
+              <strong>Error !</strong> Allocated asset can't be removed.
+            </div> -->
+          <table class="table table-hover table-striped table-bordered">
+            <caption *ngIf='isLoading'>
+              <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
+            </caption>
+            <caption *ngIf='!isLoading'>
+              List of all Centers.
+              <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize'>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+              </select>
+              <label class="float-right" style="padding-top: 0.5rem;">Items per
+                page:&nbsp;&nbsp;</label>
+            </caption>
+            <thead class="clickable">
+              <td (click)='sortById()'>
+                <i class="fas fa-sort" *ngIf='sortedById'></i> &nbsp;CenterId Id
+              </td>
+              <td (click)='sortByName()'>
+                <i class="fas fa-sort" *ngIf='sortedByName'></i> &nbsp;Center Name
+              </td>
 
-                 <!-- Enter the code here -->
-                <table class="table table-striped custab">
-                  <tr>
-                    <th>Center Id </th>
-                    <th>Center Name </th>
-                    <th>Action</th>
-                    <th>View </th>
-                  </tr>
-                  <tr *ngFor="let center of centers ">
-                  <td>{{center.centerId}}</td>
-                  <td>{{center.centerName}}</td>
-                  <td><button class="btn btn-danger" (click)="remove(center.centerId)">Delete</button></td>
-                  <td><a [routerLink]="['/show-center-details',center.centerId]">View details</a></td>
-                  
-                </tr>
-                </table>
-                
-            </div>  
-
-          </div> <!-- /.row -->
-      </div> <!-- /.container-fluid -->
-  </body>
-
+              <td colspan="2">Action</td>
+            </thead>
+            <tbody>
+              <tr *ngFor='let center of centers1| paginate: { itemsPerPage: bucketSize, currentPage: p}'>
+                <td>{{center.centerId}}</td>
+                <td>{{center.centerName}}</td>
+                <td data-toggle="tooltip" title="Delete Center">
+                  <i class="fas fa-trash clickable" (click)='remove(center.centerId)'></i>
+                </td>
+                <td><a [routerLink]="['/admin/dashboard/show-center-details',center.centerId]"><i class="fas fa-book-medical"></i>
+                </a></td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
