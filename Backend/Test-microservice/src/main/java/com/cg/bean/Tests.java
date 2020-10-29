@@ -9,12 +9,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Tests")
 public class Tests {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int testId;
-	
+
 	private String testName;
+
+	public Tests() {
+
+	}
+
+	public Tests(int testId, String testName) {
+		super();
+		this.testId = testId;
+		this.testName = testName;
+	}
 
 	public int getTestId() {
 		return testId;
