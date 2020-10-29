@@ -27,24 +27,23 @@ class DiagnosticCenterMicroserviceApplicationTests {
 	private DiagnosticCenterDao repository;
 
 	@Test
-	public void presentTestsTesting() {
-		when(repository.findAll()).thenReturn(Stream.of(new DiagnosticCenters(5, "Cheers Laboratory")).collect(Collectors.toList()));
+	public void presentCentersTesting() {
+		when(repository.findAll())
+				.thenReturn(Stream.of(new DiagnosticCenters(5, "Cheers Laboratory")).collect(Collectors.toList()));
 		Assertions.assertEquals(1, service.getAllCenter().size());
 	}
 
-
 	@Test
-	public void addTestsTesting() {
+	public void addCenterTesting() {
 		DiagnosticCenters center = new DiagnosticCenters(4, "Cheers Laboratory");
-		//DiagnosticCenters test1 = new DiagnosticCenters(5, "Rahul Laboratory");
+
 		when(repository.save(center)).thenReturn(center);
-		//Assertions.assertEquals(test, service.addTest(test));		
+
 		Assertions.assertEquals(center.getCenterId(), service.addCenter(center).getCenterId());
 	}
 
-
 	@Test
-	public void  deleteUserById() {
+	public void deleteCenterById() {
 		DiagnosticCenters center = new DiagnosticCenters(7, "Eye Test");
 		service.deleteCenter(center.getCenterId());
 		verify(repository, times(1)).deleteById(7);

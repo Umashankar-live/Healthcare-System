@@ -1,19 +1,14 @@
 package com.cg.bean;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Appointments {
 
@@ -24,40 +19,21 @@ public class Appointments {
 	@Column(name = "User_ID")
 	private int userId;
 
+	@Column(name = "Test_ID")
+	private int testId;
+
 	@Column(name = "CENTER_ID")
 	private int centerId;
-	
-	private String centerName;
-	
-	private String userName;
-	
-	private String testName;
-	
-	private int testId;
 
 	@Column(name = "Status")
 	private int approved;
 
-	@Temporal(value = TemporalType.DATE)
-	@Column(name = "START_DATE")
-	@DateTimeFormat(style = "yyyy-mm-dd")
-	private Date date;
+	@Column(name = "Date")
+	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone="(UTC+05:30)Chennai,Kolkata,Mumbai,New Delhi")
+	private LocalDateTime dateTime;
 
-	@Temporal(value = TemporalType.TIME)
-	@Column(name = "TIME")
-	@DateTimeFormat(style = "hh:mm")
-
-	private Date time;
-//	@Column(name = "Time")
-//	private LocalTime time;
-
-	public Date getTime() {
-		return time;
-	}
-
-	public void setTime(Date time) {
-		this.time = time;
-	}
+	//@Column(name = "Time")
+	//private LocalTime time;
 
 	public Integer getAppointmentId() {
 		return appointmentId;
@@ -79,6 +55,14 @@ public class Appointments {
 		this.userId = userId;
 	}
 
+	public int getTestId() {
+		return testId;
+	}
+
+	public void setTestId(int testId) {
+		this.testId = testId;
+	}
+
 	public int getCenterId() {
 		return centerId;
 	}
@@ -91,54 +75,15 @@ public class Appointments {
 		this.approved = approved;
 	}
 
-	public Date getDate() {
-		return date;
+	public LocalDateTime getDatetime() {
+		return dateTime;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setDatetime(LocalDateTime datetime) {
+		this.dateTime = datetime;
 	}
 
-//	public LocalTime getTime() {
-//		return time;
-//	}
-//
-//	public void setTime(LocalTime time) {
-//		this.time = time;
-//	}
-
-	public String getCenterName() {
-		return centerName;
-	}
-
-	public void setCenterName(String centerName) {
-		this.centerName = centerName;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getTestName() {
-		return testName;
-	}
-
-	public void setTestName(String testName) {
-		this.testName = testName;
-	}
-
-	public int getTestId() {
-		return testId;
-	}
-
-	public void setTestId(int testId) {
-		this.testId = testId;
-	}
-	
 	
 
+	
 }
