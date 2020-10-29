@@ -16,8 +16,8 @@ public class User {
 
 	// private List<DiagnosticCenter> centerList;
 
-	// @NotNull(message = "user name cannot be null")
-	// @Pattern(regex = "^[A-Z][a-zA-Z]" , message = "Enter first letter as
+	//@NotNull(message = "user name cannot be null")
+	 //@Pattern(regex = "^[A-Z][a-zA-Z]" , message = "Enter first letter as
 	// capital")
 	private String userName;
 
@@ -31,10 +31,22 @@ public class User {
 	// number between 7 and 9")
 	private String mobileNo;
 
-	// private String Role;
 	private String email;
 
 	private String gender;
+
+	public User(int userId, String userName, String password, String mobileNo, String email, String gender, String role,
+			int age) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.password = password;
+		this.mobileNo = mobileNo;
+		this.email = email;
+		this.gender = gender;
+		this.role = role;
+		this.age = age;
+	}
 
 	private String role;
 
