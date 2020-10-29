@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cg.bean.User;
 import com.cg.dao.UserDao;
+import com.cg.exception.NoValueFoundException;
+import com.cg.exception.NotPossibleException;
 
 @Service
 public class UserServiceImpl implements UserServiceInterface {
@@ -20,13 +22,23 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	@Override
 	public void deleteUser(Integer userId) {
+		User user=this.userDao.findAll().stream().filter(x -> userId.equals(x.getUserId())).findAny().orElse(null);
+		if(user==null) {
+			throw new NotPossibleException("This operation is not possible");
+		}
+		else
 		this.userDao.deleteById(userId);
 
 	}
 
 	@Override
 	public User searchUser(Integer userId) {
-		return this.userDao.findAll().stream().filter(x -> userId.equals(x.getUserId())).findAny().orElse(null);
+		User user = this.userDao.findAll().stream().filter(x -> userId.equals(x.getUserId())).findAny().orElse(null);
+		if(user==null) {
+			throw new NoValueFoundException("No such User is available");
+		}
+		else
+		return user;
 	}
 
 	@Override

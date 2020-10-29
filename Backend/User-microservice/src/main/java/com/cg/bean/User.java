@@ -34,6 +34,10 @@ public class User {
 	private String email;
 
 	private String gender;
+	
+	public User() {
+		
+	}
 
 	public User(int userId, String userName, String password, String mobileNo, String email, String gender, String role,
 			int age) {
