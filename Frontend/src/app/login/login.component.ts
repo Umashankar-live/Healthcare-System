@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   isLogginIn: boolean = false
   isInvalidAttempt: boolean = false
   inputType: string = "password"
-  errMsg: string = "Please check your inputs.."
+  errMsg: string = "Please enter correct credential.."
   
   constructor(private router: Router, private loginservice: LoginserviceService,private route: ActivatedRoute) { 
     

@@ -3,7 +3,7 @@ package com.cg.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.bean.UsersOfSystem;
+import com.cg.bean.User;
 import com.cg.dao.UserDao;
 
 @Service
@@ -15,19 +15,19 @@ public class LoginServiceImpl implements LoginService {
 
 
 	@Override
-	public UsersOfSystem getUserByUserName(String userName) {
+	public User getUserByUserName(String userName) {
 		return userDao.findByUserName(userName);
 		 
 	}
 
 	@Override
-	public UsersOfSystem addUser(UsersOfSystem user) {
+	public User addUser(User user) {
 		user.setRole("user");
 		return userDao.save(user);
 	}
 
 	@Override
-	public UsersOfSystem getUserByUserNameAndPassword(String tempUsername, String tempPassword) {
+	public User getUserByUserNameAndPassword(String tempUsername, String tempPassword) {
 		return userDao.findByUserNameAndPassword(tempUsername,tempPassword);
 	}
 

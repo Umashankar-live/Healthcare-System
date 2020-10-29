@@ -1,13 +1,13 @@
 package com.cg.service;
 
-import com.cg.bean.UsersOfSystem;
+import com.cg.bean.User;
 
 public interface LoginService {
 
-	public UsersOfSystem getUserByUserName(String userName);
+	public User getUserByUserName(String userName);
 
-	public UsersOfSystem addUser(UsersOfSystem user);
+	public User addUser(User user);
 
-	public UsersOfSystem getUserByUserNameAndPassword(String tempUsername, String tempPassword);
+	public User getUserByUserNameAndPassword(String tempUsername, String tempPassword);
 
 }

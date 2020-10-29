@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.bean.Login;
-import com.cg.bean.UsersOfSystem;
+import com.cg.bean.User;
 import com.cg.service.LoginService;
 
 /*
@@ -30,18 +30,17 @@ public class LoginController {
 	private LoginService service;
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public UsersOfSystem loginUser(@RequestBody Login user) throws Exception {
+	public User loginUser(@RequestBody Login user) {
 		String tempUsername = user.getUserName();
 		String tempPassword = user.getPassword();
-		UsersOfSystem userObj = null;
+		User userObj ;
 		if (tempUsername != null && tempPassword != null) {
 			userObj = service.getUserByUserNameAndPassword(tempUsername, tempPassword);
+			return userObj ;
 		}
-		if (userObj == null) {
-			throw new Exception("Bad Credentials");
-		}
+			
+	   return null ;
 
-		return userObj;
 	}
 
 }
