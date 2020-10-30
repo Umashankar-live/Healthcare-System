@@ -2,6 +2,8 @@ package com.cg.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cg.bean.DiagnosticCenters;
@@ -15,13 +17,16 @@ public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 	@Autowired
 	private DiagnosticCenterDao dao;
 	
+	private static final Logger logger = LoggerFactory.getLogger(DiagnosticCenterServiceImpl.class);
 	/***
 	 * This Function is used to add center
 	 */
 	@Override
 	public DiagnosticCenters addCenter(DiagnosticCenters center) {
-		if(center==null || center.getCenterName()==null|| center.getListOfTests()==null)
+		if(center==null || center.getCenterName()==null|| center.getListOfTests()==null) {
+			logger.warn("check weather data to data to input is correct or not");
 			throw new NotPossibleException("Cannot Add this center");
+		}
 		return this.dao.save(center);
 	}
 
@@ -33,6 +38,7 @@ public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 		try {
 			this.dao.deleteById(centerId);
 		} catch (Exception e) {
+			logger.warn("Check the centerId is correct or not");
 			throw new NotPossibleException("Cannot Delete this center");
 		}
 	}
@@ -43,7 +49,8 @@ public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 	@Override
 	public DiagnosticCenters searchCenter(Integer centerId) {
 		if(this.dao.findAll().stream().filter(x -> centerId.equals(x.getCenterId())).findAny().orElse(null)==null) {
-			throw new NotPossibleException("Center not Found with this ID");
+			logger.warn("Check whether the centerId is correct or not");
+			throw new NoValueFoundException("Center not Found with this ID");
 		}
 		return this.dao.findAll().stream().filter(x -> centerId.equals(x.getCenterId())).findAny().orElse(null);		
 		
@@ -54,9 +61,10 @@ public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 	 */
 	@Override
 	public List<DiagnosticCenters> getAllCenter() {
-		 if(this.dao.findAll()==null)
+		 if(this.dao.findAll()==null) {
+			 logger.warn("Check if database is empty or not");
 			 throw new NoValueFoundException("There is no Center in Table");
-		 
+		 } 
 		 return this.dao.findAll();
 	}
 

@@ -4,11 +4,11 @@ package com.cg.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,35 +25,41 @@ public class DiagnosticCenterController {
 	@Autowired
 	private DiagnosticCenterService service;
 	
-	@PostMapping(value = "/addCenter", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public DiagnosticCenters addHotel(@RequestBody DiagnosticCenters center) {
+	//http://localhost:9003//admin/diagnosticCenter/addCenter
+	@PostMapping(value = "/addCenter")
+	public DiagnosticCenters addCenters(@RequestBody DiagnosticCenters center) {
 		System.out.println(center.getCenterName());
 		System.out.println(center.getListOfTests().size());
 		return this.service.addCenter(center);
 	}
 	
+	//http://localhost:9003//admin/diagnosticCenter/getAllCenters
 	@GetMapping(value = "/getAllCenters")
-	public List<DiagnosticCenters> getAllTest() {
+	public List<DiagnosticCenters> getAllCenters() {
 		return this.service.getAllCenter();
 	}
 	
 	@RequestMapping(value = "/deleteCenter/{centerId}", method = RequestMethod.DELETE)
+	//http://localhost:9003//admin/diagnosticCenter/deleteCenter/3
 	public void deleteCenter(@PathVariable Integer centerId) {
 		this.service.deleteCenter(centerId);
 	}
 	
+	//http://localhost:9003//admin/diagnosticCenter/searchCenter/1
 	@GetMapping(value = "/searchCenter/{centerId}")
-	public DiagnosticCenters searchHotelById(@PathVariable Integer centerId) {
+	public DiagnosticCenters searchCenterById(@PathVariable Integer centerId) {
 		return this.service.searchCenter(centerId);
 	}
 	
-	@RequestMapping(value = "/updateCenter/{centerId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	//http://localhost:9003//admin/diagnosticCenter/updateCenter/1
+	@PutMapping(value = "/updateCenter/{centerId}")
 	public DiagnosticCenters updateCenter(@RequestBody DiagnosticCenters center) {
 		return this.service.updateCenter(center);
 	}
 	
+	//http://localhost:9003//admin/diagnosticCenter/countCenter
 	@GetMapping(value = "/countCenter")
-	public long countAssets() {
+	public long countCenters() {
 		return this.service.countCenters();
 	}
 }

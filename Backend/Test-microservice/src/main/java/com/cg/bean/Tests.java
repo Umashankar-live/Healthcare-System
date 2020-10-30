@@ -9,15 +9,17 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Tests")
 public class Tests {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int testId;
-
+	
 	private String testName;
 
-	public Tests() {
 
+
+	public Tests() {
+		super();
 	}
 
 	public Tests(int testId, String testName) {
