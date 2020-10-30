@@ -1,10 +1,14 @@
 package com.cg.exceptionhandler;
 
+import java.util.Date;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 
 import com.cg.exception.NoValueFoundException;
 import com.cg.exception.NotPossibleException;
@@ -36,4 +40,7 @@ public class GlobalExceptionHandler {
 		HttpStatus status = HttpStatus.BAD_REQUEST;
 		return new ResponseEntity<>(error, status);
 	}
+	
+	
 }
+

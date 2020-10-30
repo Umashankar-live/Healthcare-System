@@ -32,6 +32,7 @@ public class TestServiceImpl implements TestServiceInterface {
 	}
 
 	@Override
+<<<<<<< Updated upstream
 	public void deleteTest(Integer testId) {
 		Tests test=this.testDao.findAll().stream().filter(x -> testId.equals(x.getTestId())).findAny().orElse(null);
 		if(test==null) {
@@ -40,7 +41,17 @@ public class TestServiceImpl implements TestServiceInterface {
 		}
 		else
 		this.testDao.deleteById(testId);
+=======
+	public Integer deleteTest(Integer testId) {
+		try {
+			this.testDao.deleteById(testId);
+		} catch (Exception e) {
+>>>>>>> Stashed changes
 
+			return -1;
+		}
+
+		return 1;
 	}
 
 	@Override
@@ -74,7 +85,7 @@ public class TestServiceImpl implements TestServiceInterface {
 	@Override
 	public long countTests() {
 		return this.testDao.count();
-		
+
 	}
 
 }

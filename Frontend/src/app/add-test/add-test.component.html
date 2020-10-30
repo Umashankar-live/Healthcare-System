@@ -1,5 +1,9 @@
 <div class="container">
-  <div >
+  <div class="alert alert-success" *ngIf='isadded'>
+    <button href="#" class="close" (click)='isadded = false'>&times;</button>
+    <strong>SUCCESS !</strong> Test is added.
+  </div>
+  <div>
     <div class="row">
       <div class="col-md-3"></div>
       <div class="col-md-6">

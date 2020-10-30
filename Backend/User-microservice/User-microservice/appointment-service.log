@@ -1,0 +1,5 @@
+2020-10-30 16:44:20.793  INFO 25888 --- [restartedMain] com.cg.UserMicroserviceApplication       : Starting UserMicroserviceApplication on LAPTOP-FR976KDK with PID 25888 (C:\Users\Swapnil\OneDrive\Documents\Github\Healthcare-System\Backend\User-microservice\target\classes started by Swapnil in C:\Users\Swapnil\OneDrive\Documents\Github\Healthcare-System\Backend\User-microservice)
+2020-10-30 16:44:20.794  INFO 25888 --- [restartedMain] com.cg.UserMicroserviceApplication       : No active profile set, falling back to default profiles: default
+2020-10-30 16:44:21.278  WARN 25888 --- [task-2] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2020-10-30 16:44:21.297  WARN 25888 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-10-30 16:44:21.471  INFO 25888 --- [restartedMain] com.cg.UserMicroserviceApplication       : Started UserMicroserviceApplication in 0.721 seconds (JVM running for 308.503)

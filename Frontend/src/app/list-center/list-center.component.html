@@ -3,8 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <h1 class="text-center"><i class="fas fa-clinic-medical"
-            ></i> Diagnostic Centers</h1>
+          <h1 class="text-center"><i class="fas fa-clinic-medical"></i> Diagnostic Centers</h1>
         </div>
         <div style="overflow-x: auto;">
           <div class="container">
@@ -54,12 +53,68 @@
                 <td data-toggle="tooltip" title="Delete Center">
                   <i class="fas fa-trash clickable" (click)='remove(center.centerId)'></i>
                 </td>
-                <td><a [routerLink]="['/admin/dashboard/show-center-details',center.centerId]"><i class="fas fa-book-medical"></i>
-                </a></td>
+                <td data-toggle="tooltip"><i (click)='getDetailsById(center.centerId)' class="fas fa-book-medical"
+                    data-toggle="modal" data-target="#detailModal"></i></td>
               </tr>
             </tbody>
           </table>
           <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal for view the details -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="updateModalLabel"><i class="fas fa-laptop-medical"></i> {{centerNames}}
+        </h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div style="overflow-x: auto;">
+                  <table class="table table-hover table-striped table-bordered">
+                    <caption *ngIf='isLoading'>
+                      <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
+                    </caption>
+                    <caption *ngIf='!isLoading'>
+                      List of all tests.
+                      <select class="form-control float-right col-md-2" [(ngModel)]='Size'>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                      </select>
+                      <label class="float-right" style="padding-top: 0.5rem;">Items per
+                        page:&nbsp;&nbsp;</label>
+                    </caption>
+                    <thead>
+                      <td>Test Id</td>
+                      <td>Test Name</td>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let test of tests| paginate: { itemsPerPage: Size, currentPage: q} ">
+                        <td>{{test.testId}}</td>
+                        <td>{{test.testName}}</td>
+                        <!-- <td data-toggle="tooltip" title="Delete Test">
+                          <i class="fas fa-trash clickable" (click)='remove(test.testId)'></i>
+                        </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                  <pagination-controls (pageChange)="q = $event"></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

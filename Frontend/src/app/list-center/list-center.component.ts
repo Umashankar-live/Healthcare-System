@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CenterModel } from '../../models/center.model';
 import { CenterService } from '../../service/center.service';
+import { Tests } from '../../models/test.model';
 
 @Component({
   selector: 'app-list-center',
@@ -11,6 +12,7 @@ import { CenterService } from '../../service/center.service';
 export class ListCenterComponent implements OnInit {
 
   centers: CenterModel[] = [];
+  center: CenterModel;
   centers1: CenterModel[] = [];
 
   //Flags required for interactive UI
@@ -23,6 +25,8 @@ export class ListCenterComponent implements OnInit {
   sortedByName: boolean = null
   sortedByDes: boolean = null
   isDeleteError: boolean = false
+  centerNames: String;
+  tests: Tests[] = [];
 
   constructor(private route: Router, private service: CenterService) { }
 
@@ -53,13 +57,6 @@ export class ListCenterComponent implements OnInit {
   }
 
 
-  // reloadData() {
-  //   this.service.fetchAllTests().subscribe(data => {
-  //     this.tests = data;
-  //     console.log(this.tests);
-  //   });
-  // }
-
   remove(centerId: number) {
     // if (this.tests.filter(test => test.testId == testId)[0].status == 'allocated')
     // this.isDeleteError = true
@@ -68,7 +65,19 @@ export class ListCenterComponent implements OnInit {
       this.centers = []
       this.ngOnInit()
     })
+  }
 
+  getDetailsById(centerId: number) {
+
+    this.service.fetchCenterByCenterId(centerId).subscribe(data => {
+      this.center = data;
+      this.centerNames = this.center.centerName;
+      this.tests = this.center.listOfTests;
+      console.log(this.center);
+      if (this.center == null) {
+        alert("No Details Available ");
+      }
+    });
 
   }
 

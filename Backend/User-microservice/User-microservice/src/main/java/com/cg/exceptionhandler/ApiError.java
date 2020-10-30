@@ -1,12 +1,15 @@
 package com.cg.exceptionhandler;
 
-
+import java.util.Date;
 
 public class ApiError {
-	String exception;
-	
-	
+	  String exception;
+	  
 
+	  
+	  
+	  
+	
 	public ApiError() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -16,7 +19,6 @@ public class ApiError {
 		super();
 		this.exception = exception;
 	}
-
 	public String getException() {
 		return exception;
 	}
@@ -24,5 +26,6 @@ public class ApiError {
 	public void setException(String exception) {
 		this.exception = exception;
 	}
+
 	
 }

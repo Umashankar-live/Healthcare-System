@@ -61,12 +61,16 @@ export class ListTestComponent implements OnInit {
   // }
 
   remove(testId: number) {
-    // if (this.tests.filter(test => test.testId == testId)[0].status == 'allocated')
-    // this.isDeleteError = true
-
+   
     this.service.deleteTest(testId).subscribe((res) => {
-      this.tests = []
-      this.ngOnInit()
+
+      if (res == -1)
+        this.isDeleteError = true
+
+      else {
+        this.tests = []
+        this.ngOnInit()
+      }
     })
 
 

@@ -10,6 +10,7 @@ import { TestService } from '../../service/test.service';
 })
 export class AddTestComponent implements OnInit {
   test : Tests;
+  isadded : boolean = false
   constructor(private router : Router, private service : TestService) {
     this.test = new Tests();
    }
@@ -19,9 +20,12 @@ export class AddTestComponent implements OnInit {
 
   saveTest(){
     console.log(this.test.testName);
+    
     this.service.addTest(this.test).subscribe(response=>{
-      //this.route.navigate(['list-test']);
+      this.isadded = true
+      //this.router.navigate(['admin/dashboard/test/view']);   
     });
+    
     
   }
 

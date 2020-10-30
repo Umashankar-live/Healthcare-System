@@ -5,6 +5,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.sun.istack.NotNull;
+
 
 @Entity
 @Table(name = "User")
@@ -16,24 +25,30 @@ public class User {
 
 	// private List<DiagnosticCenter> centerList;
 
-	//@NotNull(message = "user name cannot be null")
-	 //@Pattern(regex = "^[A-Z][a-zA-Z]" , message = "Enter first letter as
-	// capital")
-	private String userName;
+	@NotEmpty(message = "User name is required")
+	@Pattern(regexp = "^[A-Z][A-Za-z0-9_-]{3,19}$", message = "Enter Valid Username:" )
+    //@Max(5)
+    private String userName;
 
-	// @NotNull(message = "user pass cannot be null")
-	// @Pattern(regex =
-	// "^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[@#$%^&-+=()])(?=\\S+$).{8, 14}$",
-	// message = "Invalid Password")
-	private String password;
+    @NotEmpty(message = "Password is required")
+    //At least one upper case English letter,At least one lower case English letter,At least one digit,At least one special character,Minimum eight in length
+    //@Pattern(regexp ="^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}$", message = "Invalid Password")
+    private String password;
 
-	// @Pattern(regex = "^[789]\\d{9}$" , message = "Enter 10 digit with starting
-	// number between 7 and 9")
+    @NotEmpty(message = "Phone number is required")
+	@Pattern(regexp = "[7-9][0-9]{9}" , message = "Enter 10 digit with starting number between 7 and 9")
 	private String mobileNo;
 
+	@NotEmpty(message = "Email is required")
+	@Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$" , message = "Enter Valid Email")
+    @Email
 	private String email;
 
 	private String gender;
+	
+	private String role;
+
+	private int age;
 	
 	public User() {
 		
@@ -52,9 +67,7 @@ public class User {
 		this.age = age;
 	}
 
-	private String role;
 
-	private int age;
 
 	public int getUserId() {
 		return userId;

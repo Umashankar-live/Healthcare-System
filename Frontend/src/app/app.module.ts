@@ -19,7 +19,6 @@ import { ListTestComponent } from './list-test/list-test.component';
 import { AddCenterComponent } from './add-center/add-center.component';
 import { ListCenterComponent } from './list-center/list-center.component';
 import { ListAppointmentsComponent } from './list-appointments/list-appointments.component';
-import { ShowCenterDetailsComponent } from 'src/show-center-details/show-center-details.component';
 import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.component';
 
 @NgModule({
@@ -38,7 +37,6 @@ import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.com
     AddCenterComponent,
     ListCenterComponent,
     ListAppointmentsComponent,
-    ShowCenterDetailsComponent,
     AdminDashBoardComponent
   ],
   imports: [

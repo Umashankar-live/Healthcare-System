@@ -13,7 +13,7 @@ export class LoginserviceService {
  
 
   login_url = "http://localhost:9002/healthcaresystem/login";
-  registration_url = "http://localhost:9002/healthcaresystem/registeruser";
+  registration_url = "http://localhost:9008/user/addUser";
  
 
   constructor(private _http:HttpClient) { }

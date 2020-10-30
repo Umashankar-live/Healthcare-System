@@ -4,8 +4,8 @@ export class User{
     password:string;
     role:string;
     email:string;
-    phoneNo:number;
+    mobileNo:number;
     gender:string;
+    age : number ;
 
-    constructor(){}
 }

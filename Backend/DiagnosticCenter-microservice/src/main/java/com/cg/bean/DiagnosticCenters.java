@@ -19,7 +19,7 @@ public class DiagnosticCenters {
 
 	private String centerName;
 
-	@ManyToMany(cascade = { CascadeType.MERGE })
+	@ManyToMany(cascade = { CascadeType.MERGE  })
 	private List<Tests> listOfTests = new ArrayList<>();
 
 	public DiagnosticCenters(int centerId, String centerName) {

@@ -32,7 +32,7 @@ class UserMicroserviceApplicationTests {
 	@Test
 	public void SearchUserTest() {
 		when(repository.findAll()).thenReturn(Stream.of(new User(4, "Admin1", "root","9874563210","abc@gmail.com","Male","User",20),new User(40, "Admin10", "root","9874563210","abc@gmail.com","Male","User1",22)).collect(Collectors.toList()));
-		Assertions.assertEquals(0, service.getAllUser().size());
+		Assertions.assertEquals(2, service.getAllUser().size());
 	}
 
 	//private void assertEquals(int i, int size) {

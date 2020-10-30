@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ShowCenterDetailsComponent } from 'src/show-center-details/show-center-details.component';
 import { AddCenterComponent } from './add-center/add-center.component';
 import { AddTestComponent } from './add-test/add-test.component';
 import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.component';
@@ -28,7 +27,6 @@ const routes: Routes = [
     { path:'center/add',component:AddCenterComponent},
     { path:'center/view',component:ListCenterComponent},
     { path:'appointments/view',component:ListAppointmentsComponent},
-    { path:'show-center-details/:id',component:ShowCenterDetailsComponent}
     ]
   },
   

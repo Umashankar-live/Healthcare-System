@@ -80,7 +80,8 @@ export class AddCenterComponent implements OnInit {
     console.log(this.center.listOfTests);
     console.log(this.center);
     this.service.addCeter(this.center).subscribe(response => {
-      this.route.navigate(['list-center'])
+      alert(" Center successfully added !!!")
+      this.route.navigate(['admin/dashboard/center/view'])
     });
   }
 

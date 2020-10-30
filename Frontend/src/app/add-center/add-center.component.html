@@ -49,11 +49,11 @@
                 </form> -->
 
 
- <div class="container-fluid"> 
+<div class="container-fluid">
   <div>
     <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-6">
+      <div class="col-md-1"></div>
+      <div class="col-md-11">
         <div class="card bg-transparent">
           <div class="card-header">
             <p class="h1 text-center"><i class="fas fa-clinic-medical
@@ -94,7 +94,8 @@
                     </caption>
                     <caption *ngIf='!isLoading'>
                       List of all tests.
-                      <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize' [ngModelOptions]="{standalone: true}">
+                      <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize'
+                        [ngModelOptions]="{standalone: true}">
                         <option value="5">5</option>
                         <option value="10">10</option>
                         <option value="15">15</option>
