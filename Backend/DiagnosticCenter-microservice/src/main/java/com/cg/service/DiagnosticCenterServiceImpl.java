@@ -20,10 +20,9 @@ public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 	 */
 	@Override
 	public DiagnosticCenters addCenter(DiagnosticCenters center) {
-		 if(this.dao.save(center)==null)
-			 throw new NotPossibleException("Cannot add this Center");
-		 
-		 return this.dao.save(center);
+		if(center==null || center.getCenterName()==null|| center.getListOfTests()==null)
+			throw new NotPossibleException("Cannot Add this center");
+		return this.dao.save(center);
 	}
 
 	/***
@@ -31,7 +30,11 @@ public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 	 */
 	@Override
 	public void deleteCenter(Integer centerId) {
-		this.dao.deleteById(centerId);
+		try {
+			this.dao.deleteById(centerId);
+		} catch (Exception e) {
+			throw new NotPossibleException("Cannot Delete this center");
+		}
 	}
 
 	/***

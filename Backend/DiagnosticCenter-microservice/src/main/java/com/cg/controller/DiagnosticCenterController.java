@@ -38,7 +38,7 @@ public class DiagnosticCenterController {
 	}
 	
 	@RequestMapping(value = "/deleteCenter/{centerId}", method = RequestMethod.DELETE)
-	public void deleteTest(@PathVariable Integer centerId) {
+	public void deleteCenter(@PathVariable Integer centerId) {
 		this.service.deleteCenter(centerId);
 	}
 	
@@ -48,7 +48,7 @@ public class DiagnosticCenterController {
 	}
 	
 	@RequestMapping(value = "/updateCenter/{centerId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public DiagnosticCenters updateHotel(@RequestBody DiagnosticCenters center) {
+	public DiagnosticCenters updateCenter(@RequestBody DiagnosticCenters center) {
 		return this.service.updateCenter(center);
 	}
 	
