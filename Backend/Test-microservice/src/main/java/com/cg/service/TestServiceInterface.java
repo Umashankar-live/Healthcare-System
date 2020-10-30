@@ -8,7 +8,7 @@ public interface TestServiceInterface {
 
 	public Tests addTest(Tests test);
 
-	public Integer deleteTest(Integer testId);
+	public void deleteTest(Integer testId);
 
 	public Tests searchTest(Integer testId);
 

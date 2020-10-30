@@ -28,9 +28,7 @@ class TestMicroserviceApplicationTests {
 
 	@Test
 	public void presentTestsTesting() {
-		//adds the behaviour of repository
 		when(repository.findAll()).thenReturn(Stream.of(new Tests(5, "Eye Test")).collect(Collectors.toList()));
-		//test the findall functionality
 		Assertions.assertEquals(1, service.getAllTest().size());
 	}
 
@@ -47,9 +45,10 @@ class TestMicroserviceApplicationTests {
 
 	@Test
 	public void  deleteUserById() {
-         Tests user = new Tests(7, "Eye Test");
-		service.deleteTest(user.getTestId());
-		verify(repository, times(1)).deleteById(9);
+         Tests test = new Tests(7, "Eye Test");
+		service.deleteTest(test.getTestId());
+		verify(repository, times(1)).deleteById(7);
 	}
 
 }
+
