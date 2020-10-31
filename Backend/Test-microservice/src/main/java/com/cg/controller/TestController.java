@@ -35,8 +35,8 @@ public class TestController {
 	}
 
 	@DeleteMapping(value = "/deleteTest/{testId}")
-	public void deleteTest(@PathVariable Integer testId) {
-		this.testService.deleteTest(testId);
+	public Integer deleteTest(@PathVariable Integer testId) {
+	  return this.testService.deleteTest(testId);
 	}
 
 	@GetMapping(value = "/searchTest/{testId}")

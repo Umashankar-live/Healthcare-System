@@ -19,8 +19,15 @@ public class TestServiceImpl implements TestServiceInterface {
 	}
 
 	@Override
-	public void deleteTest(Integer testId) {
-		this.testDao.deleteById(testId);
+	public Integer deleteTest(Integer testId) {
+		try {
+			this.testDao.deleteById(testId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1 ;
+		}
+		
+		return 1 ;
 
 	}
 
