@@ -11,7 +11,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
-import { AdminComponent } from './admin/admin.component';
 import { RegisterComponent } from './register/register.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AddTestComponent } from './add-test/add-test.component';
@@ -25,7 +24,6 @@ import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.com
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminComponent,
     UserComponent,
     RegisterComponent,
     AppComponent,

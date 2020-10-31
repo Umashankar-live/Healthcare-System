@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { AddCenterComponent } from './add-center/add-center.component';
 import { AddTestComponent } from './add-test/add-test.component';
 import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.component';
-import { AdminComponent } from './admin/admin.component';
 import { CustomerComponent } from './customer/customer.component';
 import { ListAppointmentsComponent } from './list-appointments/list-appointments.component';
 import { ListCenterComponent } from './list-center/list-center.component';
@@ -42,20 +41,3 @@ const routes: Routes = [
 export class AppRoutingModule { }
 
 
-// const routes: Routes = [
-//   { path:'',redirectTo: '/login', pathMatch: 'full'},
-//   { path:'login',component:LoginComponent},
-//   { path:'register',component:RegisterComponent},
-
-
-  
-//   { path:'admin',component: AdminComponent},
-//   { path:'add-test',component:AddTestComponent},
-//   { path:'list-test',component:ListTestComponent},
-//   { path:'add-center',component:AddCenterComponent},
-//   { path:'list-center',component:ListCenterComponent},
-//   { path:'list-appointments',component:ListAppointmentsComponent},
-//   { path:'show-center-details/:id',component:ShowCenterDetailsComponent},
-  
-//   { path:'customer',component:CustomerComponent}
-// ];

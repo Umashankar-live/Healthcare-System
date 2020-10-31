@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   isLogginIn: boolean = false
   isInvalidAttempt: boolean = false
   inputType: string = "password"
+  regType: string = "password"
   errMsg: string = "Please enter correct credential.."
   
   constructor(private router: Router, private loginservice: LoginserviceService,private route: ActivatedRoute) { 
@@ -70,6 +71,15 @@ export class LoginComponent implements OnInit {
         this.inputType = "text"
       else
         this.inputType = "password"
+    }
+
+
+    //For view password
+    regToggle() {
+      if (this.regType == "password")
+        this.regType = "text"
+      else
+        this.regType = "password"
     }
 
 

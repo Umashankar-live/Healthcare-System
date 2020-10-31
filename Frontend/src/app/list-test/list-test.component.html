@@ -23,7 +23,7 @@
             <button href="#" class="close" (click)='isDeleteError = false'>&times;</button>
             <strong>Error !</strong> Allocated Test can't be removed.
           </div>
-          <table class="table table-hover table-striped table-bordered">
+          <table class="table table-hover table-striped custab">
             <caption *ngIf='isLoading'>
               <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
             </caption>
@@ -37,7 +37,7 @@
               <label class="float-right" style="padding-top: 0.5rem;">Items per
                 page:&nbsp;&nbsp;</label>
             </caption>
-            <thead class="clickable">
+            <thead  class="clickable">
               <td (click)='sortById()'>
                 <i class="fas fa-sort" *ngIf='sortedById'></i> &nbsp;Test Id
               </td>
