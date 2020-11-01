@@ -2,10 +2,10 @@ package com.cg.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-
 import com.cg.bean.User;
 import com.cg.dao.UserDao;
 import com.cg.exception.NoValueFoundException;
@@ -16,6 +16,8 @@ public class UserServiceImpl implements UserServiceInterface {
 
 	@Autowired
 	private UserDao userDao;
+
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	/***
 	 * This Function is used to add User
@@ -33,7 +35,8 @@ public class UserServiceImpl implements UserServiceInterface {
 	public void deleteUser(Integer userId) {
 		User user=this.userDao.findAll().stream().filter(x -> userId.equals(x.getUserId())).findAny().orElse(null);
 		if(user==null) {
-			throw new NotPossibleException("User Deletion operation is not possible...");
+			logger.warn("check the userId is correct or not");
+			throw new NotPossibleException("Given ID is not present so User Deletion operation is not possible...");
 		}
 		else
 		this.userDao.deleteById(userId);
@@ -47,6 +50,7 @@ public class UserServiceImpl implements UserServiceInterface {
 	public User searchUser(Integer userId) {
 		User user = this.userDao.findAll().stream().filter(x -> userId.equals(x.getUserId())).findAny().orElse(null);
 		if(user==null) {
+			logger.warn("check the userId is correct or not");
 			throw new NoValueFoundException("No such User is available...");
 		}
 		else
@@ -68,8 +72,10 @@ public class UserServiceImpl implements UserServiceInterface {
 	 */
 	@Override
 	public List<User> getAllUser() {
-		if(this.userDao.findAll() == null)
+		if(this.userDao.findAll() == null) {
+			 logger.warn("Check if database is empty or not");
 			 throw new NoValueFoundException("There is no user in Table...");
+		}
 		return this.userDao.findAll();
 	}
 

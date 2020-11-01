@@ -28,6 +28,7 @@ public class UserController {
 	@Autowired
 	private UserServiceInterface userService;
 
+	//http://localhost:9008/user/addUser
 	@RequestMapping(value = "/addUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public User addUser(@Valid @RequestBody User user) {
 		user.setRole("user");
@@ -35,22 +36,25 @@ public class UserController {
 	}
 	
 
+	//http://localhost:9008/user/getAllUser
 	@GetMapping(value = "/getAllUser")
 	public List<User> getAllTest() {
 		return this.userService.getAllUser();
 	}
 
-
+	//http://localhost:9008/user/deleteUser/12
 	@DeleteMapping(value = "/deleteUser/{userId}")
 	public void deleteUser(@PathVariable Integer userId) {
 		this.userService.deleteUser(userId);
 	}
 
+	//http://localhost:9008/user/searchUser/1
 	@GetMapping(value = "/searchUser/{userId}")
 	public User searchUserById(@PathVariable Integer userId) {
 		return this.userService.searchUser(userId);
 	}
 	
+	//http://localhost:9008/user/updateUser/1
 	@RequestMapping(value = "/updateUser/{userId}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public User updateUser(@RequestBody User user,@PathVariable Integer userId) {
 		User newUser = this.userService.searchUser(userId);
