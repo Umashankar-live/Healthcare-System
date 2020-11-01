@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Appointments {
 
@@ -16,24 +18,34 @@ public class Appointments {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer appointmentId;
 
+	@NotNull(message = "Cannot generate appointment without UserId")
 	@Column(name = "User_ID")
 	private int userId;
 
+	@Column(name = "User_NAME")
+	private String userName;
+
+	@NotNull(message = "Cannot generate appointment without TestId")
 	@Column(name = "Test_ID")
 	private int testId;
 
+	@Column(name = "Test_NAME")
+	private String testName;
+
+	@NotNull(message = "Cannot generate appointment without DiagnosticCenterId")
 	@Column(name = "CENTER_ID")
 	private int centerId;
+
+	@Column(name = "CENTER_NAME")
+	private String centerName;
 
 	@Column(name = "Status")
 	private int approved;
 
+	@NotNull(message = "Please specify a date for appointment")
 	@Column(name = "Date")
-	@JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "yyyy-MM-dd HH:mm:ss",timezone="(UTC+05:30)Chennai,Kolkata,Mumbai,New Delhi")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime dateTime;
-
-	//@Column(name = "Time")
-	//private LocalTime time;
 
 	public Integer getAppointmentId() {
 		return appointmentId;
@@ -83,7 +95,61 @@ public class Appointments {
 		this.dateTime = datetime;
 	}
 
-	
+	public Appointments(int userId, int testId, int centerId, int approved, LocalDateTime dateTime) {
+		super();
+		this.userId = userId;
+		this.testId = testId;
+		this.centerId = centerId;
+		this.approved = approved;
+		this.dateTime = dateTime;
+	}
 
-	
+	public Appointments() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Appointments(Integer appointmentId, int userId, int testId, int centerId, int approved,
+			LocalDateTime dateTime) {
+		super();
+		this.appointmentId = appointmentId;
+		this.userId = userId;
+		this.testId = testId;
+		this.centerId = centerId;
+		this.approved = approved;
+		this.dateTime = dateTime;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getTestName() {
+		return testName;
+	}
+
+	public void setTestName(String testName) {
+		this.testName = testName;
+	}
+
+	public String getCenterName() {
+		return centerName;
+	}
+
+	public void setCenterName(String centerName) {
+		this.centerName = centerName;
+	}
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+
 }

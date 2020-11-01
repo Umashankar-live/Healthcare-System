@@ -1,12 +1,19 @@
 package com.cg.service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 import com.cg.bean.Appointments;
 
-public interface Appointment_Service {
-
+public interface AppointmentService {
+	
+	Appointments findAppointmentsbyId(Integer appointmentId);
+	
+	List<Appointments> findallAppointments();
+	
+	Appointments saveAppointments(Appointments a);
+	
 	String checkAppointmentStatus(Integer appointmentId);
 
 	List<Appointments> findAppointmentsByUserId(int userId);
@@ -24,6 +31,8 @@ public interface Appointment_Service {
 	boolean checkAppointmentByAppointmentId(Integer appointmentId);
 
 	Appointments searchAppointmentByAppointmentId(Integer appointmentId);
+
+	String export(Integer userId) throws IOException;
 
 	//boolean getPendingAppointmentsForDiagnosticCenter(int diagnosticCenterId);
 

@@ -1,8 +1,8 @@
 package com.cg.controller;
 
-import java.util.Collections;
+import java.io.IOException;
 import java.util.List;
-import java.util.Map;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -12,10 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.bean.Appointments;
-import com.cg.service.Appointment_Service;
+import com.cg.service.AppointmentService;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,13 +24,13 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-//@RequestMapping("/appointments")
+@RequestMapping("/appointments")
 @CrossOrigin // (origins = "http://localhost:4200")
 @Api(value = "HealthCareSystem Appointments using logger and swagger")
-public class Appointment_controller {
+public class AppointmentController {
 
 	@Autowired
-	private Appointment_Service appointmentService;
+	private AppointmentService appointmentService;
 
 	// "2020-10-29T04:10:22.293+00:00"
 	/*
@@ -37,6 +38,8 @@ public class Appointment_controller {
 	 * provided in the form of query. Status is having 3 values. '1' for approved
 	 * appointments, '-1', for cancelled appointments,'0' for pending.
 	 */
+
+	// URL=http://localhost:9010/appointments/status/{appointmentId}
 	@GetMapping("/status/{appointmentId}")
 	@ApiOperation(value = "getStatus", nickname = "getStatus")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
@@ -47,7 +50,9 @@ public class Appointment_controller {
 
 	// This method returns list of appointments made by a particular user whose
 	// userId will be specified in the query.
-	@GetMapping("/appointments-by-UserId/{userId}")
+
+	// URL=http://localhost:9010/appointments/appointmentsByUserId/{userId}
+	@GetMapping("/appointmentsByUserId/{userId}")
 	@ApiOperation(value = "getAppointmentByUserId", nickname = "getAppointmentByUserId")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
@@ -58,7 +63,9 @@ public class Appointment_controller {
 
 	// This method returns list of appointments made for a particular diagnostic
 	// Center whose center Id will be specified in the query.
-	@GetMapping("/appointments-by-DiagnosticCenterId/{centerId}")
+
+	// URL=http://localhost:9010/appointments/appointmentsByDiagnosticCenterId/{centerId}
+	@GetMapping("/appointmentsByDiagnosticCenterId/{centerId}")
 	@ApiOperation(value = "getAppointmentsByDiagnosticCenterId", nickname = "getAppointmentsByDiagnosticCenterId")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
@@ -68,7 +75,7 @@ public class Appointment_controller {
 	}
 
 	// This method is used to approve any appointment by providing the appointment
-	// Id.
+	// URL=http://localhost:9010/appointments/approve/{appointmentId}
 	@PutMapping("/approve/{appointmentId}")
 	@ApiOperation(value = "approveAppointment", nickname = "approveAppointment")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
@@ -78,30 +85,38 @@ public class Appointment_controller {
 	}
 
 	// This method is to cancel the appointments based on appointmentId provided.
-	@GetMapping("/cancel/{appointmentId}")
+	// URL=http://localhost:9010/appointments/cancel/{appointmentId}
+	@PutMapping("/cancel/{appointmentId}")
 	@ApiOperation(value = "cancelAppointment", nickname = "cancelAppointment")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
-	public Map<String, String> cancelAppointment(@PathVariable String appointmentId) {
-		return Collections.singletonMap("result",
-				appointmentService.cancelAppointment(Integer.valueOf((int) Long.parseLong(appointmentId))));
+	public String cancelAppointment(@PathVariable int appointmentId) {
+		return this.appointmentService.cancelAppointment(appointmentId);
 	}
 
 	/*
 	 * This method is used to make an appointment and appointmentDto is passed to
 	 * it. On validation it will save the appointment information in the database.
 	 */
+	/***
+	 * 
+	 * { "appointmentId": "2", "userId": "3", "centerId": "6", "testId": "1",
+	 * "approved": "0", "dateTime": "2020-11-05 09:09:09" }
+	 */
+	// URL=http://localhost:9010/appointments/makeAppointment
 	@PostMapping(value = "/makeAppointment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiOperation(value = "makeAppointment", nickname = "makeAppointment")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
-	public Appointments makeAppointment(@RequestBody Appointments appointmentDto) {
-		return appointmentService.makeAppointment(appointmentDto);
+	public Appointments makeAppointment(@Valid @RequestBody Appointments appointment) {
+
+		return appointmentService.makeAppointment(appointment);
 	}
 
 	// This method returns the boolean value by checking if appointment exists or
 	// not for a appointmentId.
-	@GetMapping("/check-appointment-by-appointmentId/{appointmentId}")
+	// URL=http://localhost:9010/appointments/checkAppointmentByAppointmentId/{appointmentId}
+	@GetMapping("/checkAppointmentByAppointmentId/{appointmentId}")
 	@ApiOperation(value = "checkAppointmentExists", nickname = "checkAppointmentExists")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
@@ -111,18 +126,23 @@ public class Appointment_controller {
 
 	// This method returns appointment Object by searching the database with the
 	// appointmentId provided.
-	@GetMapping("/search-appointment-by-appointmentId/{appointmentId}")
+	// URL=http://localhost:9010/appointments/searchAppointmentByAppointmentId/{appointmentId}
+	@GetMapping("/searchAppointmentByAppointmentId/{appointmentId}")
 	@ApiOperation(value = "searchAppointment", nickname = "searchAppointment")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
 	public Appointments searchAppointment(@PathVariable Integer appointmentId) {
 
-	//	return appointmentService
-		//		.searchAppointmentByAppointmentId(Integer.valueOf((int) Long.parseLong(appointmentId)));
+		return appointmentService.searchAppointmentByAppointmentId(appointmentId);
 
-		return appointmentService
-				.searchAppointmentByAppointmentId(appointmentId);
+	}
 
+	@GetMapping("/userreport/{userId}")
+	@ApiOperation(value = "getReport", nickname = "getReport")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
+			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
+	public String getReport(@PathVariable Integer userId) throws IOException {
+		return this.appointmentService.export(userId);
 	}
 
 }

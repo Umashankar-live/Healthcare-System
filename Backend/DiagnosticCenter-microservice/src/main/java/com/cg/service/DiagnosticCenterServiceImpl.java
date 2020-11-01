@@ -25,7 +25,7 @@ public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 	public DiagnosticCenters addCenter(DiagnosticCenters center) {
 		if(center==null || center.getCenterName()==null|| center.getListOfTests()==null) {
 			logger.warn("check weather data to data to input is correct or not");
-			throw new NotPossibleException("Cannot Add this center");
+			throw new NotPossibleException("Cannot Add this center Either one of the field is empty");
 		}
 		return this.dao.save(center);
 	}
@@ -39,7 +39,7 @@ public class DiagnosticCenterServiceImpl implements DiagnosticCenterService {
 			this.dao.deleteById(centerId);
 		} catch (Exception e) {
 			logger.warn("Check the centerId is correct or not");
-			throw new NotPossibleException("Cannot Delete this center");
+			throw new NotPossibleException("Cannot Delete this center CenterId Doesnot Exists");
 		}
 	}
 

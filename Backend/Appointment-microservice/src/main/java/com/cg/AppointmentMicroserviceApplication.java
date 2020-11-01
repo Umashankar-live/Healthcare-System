@@ -5,6 +5,7 @@ import java.util.Collections;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -36,10 +37,11 @@ public class AppointmentMicroserviceApplication {
 				Collections.emptyList());
 		return apiInfo;
 	}
-	//@Bean
-	// @LoadBalanced
-	//public RestTemplate getRestTemplate() {
-		//return new RestTemplate();
-	//}
+	
+	@Bean
+	//@LoadBalanced
+	public RestTemplate getRestTemplate() {
+		return new RestTemplate();
+	}
 
 }

@@ -1,5 +1,8 @@
 package com.cg.service;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,26 +13,45 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.cg.bean.Appointments;
+import com.cg.bean.DiagnosticCenters;
+import com.cg.bean.Tests;
+import com.cg.bean.User;
 import com.cg.dao.AppointmentRepository;
 import com.cg.exception.NoValueFoundException;
 import com.cg.exception.NotPossibleException;
 
 @Service
-public class Appointment_ServiceImpl implements Appointment_Service {
+public class AppointmentServiceImpl implements AppointmentService {
 
 	@Autowired
 	private AppointmentRepository appointmentRepository;
 
-	// @Autowired
-	// private RestTemplate restTemplate;
+	@Autowired
+	private RestTemplate restTemplate;
 
-	private static final Logger logger = LoggerFactory.getLogger(Appointment_ServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(AppointmentServiceImpl.class);
 
 	String appointmentNotPresent = "No appointment present with this appointment Id";
 	String diagnosticCenterNotPresent = "No diagnostic center present with this diagnostic center Id";
 	String userNotPresent = "No user present with this user Id";
+
+	@Override
+	public Appointments saveAppointments(Appointments a) {
+		return appointmentRepository.save(a);
+	}
+
+	@Override
+	public List<Appointments> findallAppointments() {
+		return appointmentRepository.findAll();
+	}
+
+	@Override
+	public Appointments findAppointmentsbyId(Integer a) {
+		return appointmentRepository.findByAppointmentId(a);
+	}
 
 	// Method to check appointment Status
 	@Override
@@ -55,24 +77,19 @@ public class Appointment_ServiceImpl implements Appointment_Service {
 	@Override
 	public List<Appointments> findAppointmentsByUserId(int userId) {
 
-		// Boolean userExists = restTemplate.getForObject("url to check userId" +
-		// userId, boolean.class);
-		List<Appointments> appointmentList = appointmentRepository.findByUserId(userId);
-		Boolean userExists;
-		if (appointmentList.isEmpty()) {
-			userExists = Boolean.FALSE;
-		} else
-			userExists = Boolean.TRUE;
+		System.out.println(userId);
+		Integer intObj = new Integer(userId);
+		User userExists = restTemplate.getForObject("http://localhost:9008/user/searchUser/" + intObj, User.class);
 
-		if (Boolean.FALSE.equals(userExists)) {
+		if (userExists == null) {
 			logger.warn(userNotPresent);
 			throw new NoValueFoundException(userNotPresent);
 		}
 
-		appointmentList = appointmentRepository.findByUserId(userId);
+		List<Appointments> appointmentList = appointmentRepository.findByUserId(userId);
 		if (appointmentList.isEmpty()) {
 			logger.warn("No appointment made for this user ");
-			throw new NoValueFoundException("You Haven't made any appointment yet");
+			throw new NoValueFoundException("User Has not made any appointment yet");
 		}
 		// return appointmentList.stream().map(a -> new
 		// AppointmentDto(a)).collect(Collectors.toList());
@@ -84,24 +101,15 @@ public class Appointment_ServiceImpl implements Appointment_Service {
 	// Id
 	@Override
 	public List<Appointments> findAppointmentsByDiagnosticCenterId(int diagnosticCenterId) {
+		String url = "http://localhost:9003/admin/diagnosticCenter/searchCenter/" + diagnosticCenterId;
+		DiagnosticCenters diagnosticCenterExists = restTemplate.getForObject(url, DiagnosticCenters.class);
 
-		// String url = "URL to check whether diagnostic center is present" +
-		// diagnosticCenterId;
-		// Boolean diagnosticCenterExists = restTemplate.getForObject(url,
-		// boolean.class);
-
-		List<Appointments> appointmentList = appointmentRepository.findByCenterId(diagnosticCenterId);
-		Boolean diagnosticCenterExists;
-		if (appointmentList.isEmpty()) {
-			diagnosticCenterExists = Boolean.FALSE;
-		} else
-			diagnosticCenterExists = Boolean.TRUE;
-
-		// Boolean diagnosticCenterExists=Boolean.TRUE;
-		if (Boolean.FALSE.equals(diagnosticCenterExists)) {
+		if (diagnosticCenterExists == null) {
 			logger.warn(diagnosticCenterNotPresent);
 			throw new NoValueFoundException(diagnosticCenterNotPresent);
 		}
+
+		List<Appointments> appointmentList = appointmentRepository.findByCenterId(diagnosticCenterId);
 
 		if (appointmentList.isEmpty()) {
 			logger.warn("user has not made any appointment yet!");
@@ -136,11 +144,9 @@ public class Appointment_ServiceImpl implements Appointment_Service {
 		Appointments appointment = appointmentRepository.findByAppointmentId(appointmentId);
 		if (appointment == null) {
 			logger.warn(appointmentNotPresent);
-			throw new NoValueFoundException(appointmentNotPresent);
+			throw new NoValueFoundException("Please enter AppointmentId");
 		}
-		
-		
-		
+
 		if (appointment.getDatetime().toLocalDate().isBefore(LocalDate.now())) {
 			return "Appointment Date is already passed";
 		} else if (appointment.getDatetime().toLocalDate() == LocalDate.now()
@@ -148,13 +154,9 @@ public class Appointment_ServiceImpl implements Appointment_Service {
 			return "Appointment Time is already passed";
 		}
 		appointment.setApproved(-1);
-		Appointments appointmentObject = appointmentRepository.save(appointment);
+		this.appointmentRepository.save(appointment);
 
-		if (appointmentObject.getApproved() == 1) {
-			return "Problem Occured!!";
-		} else {
-			return "Appointment Cancelled!!";
-		}
+		return "Appointment Cancelled!!";
 	}
 
 	// Method to return boolean value by checking if appointment exists in database
@@ -191,39 +193,42 @@ public class Appointment_ServiceImpl implements Appointment_Service {
 		appointment.setAppointmentId(null);
 		appointment.setApproved(0); // 0 is pending , so by default it will be pending
 
-		/*
-		 * String diagnosticUrl ="url to check if appointment center exists"
-		 * +appointment1.getCenterId(); Boolean diagnosticCenterExists =
-		 * restTemplate.getForObject(diagnosticUrl, boolean.class);
-		 * 
-		 * if (Boolean.FALSE.equals(diagnosticCenterExists)) {
-		 * logger.warn(diagnosticCenterNotPresent); throw new
-		 * NoValueFoundException(diagnosticCenterNotPresent); } else
-		 * appointment.setCenterId(appointment1.getCenterId());
-		 */
+		Integer intObj = new Integer(appointment1.getUserId());
+		User userExists = restTemplate.getForObject("http://localhost:9008/user/searchUser/" + intObj, User.class);
+		if (userExists == null) {
+			logger.warn(userNotPresent);
+			throw new NoValueFoundException(userNotPresent);
+		}
 
-		/*
-		 * String userUrl = "URL  to check if user exists" +appointment1.getUserId();
-		 * Boolean userExists = restTemplate.getForObject(userUrl, boolean.class); if
-		 * (Boolean.FALSE.equals(userExists)) { logger.warn(userNotPresent); throw new
-		 * NoValueFoundException(userNotPresent); } else
-		 * appointment.setUserId(appointment1.getUserId());
-		 */
+		// to ensure no user raises 2 appointments
+		if (appointmentRepository.findByUserId(appointment1.getUserId()).isEmpty() == Boolean.FALSE) {
+			logger.warn(userNotPresent);
+			throw new NoValueFoundException("particular user has already raised an appointment");
+		}
 
-		/*
-		 * String testUrl =
-		 * "URL to check if test center exists"+appointment1.getTestId(); Boolean
-		 * testCenterExists = restTemplate.getForObject(testUrl, boolean.class);
-		 * 
-		 * if (Boolean.FALSE.equals(testCenterExists)) {
-		 * logger.warn("Test C doesn't exist"); throw new
-		 * NoValueFoundException("No Test  present with this Center Id"); } else
-		 * appointment.setTestId(appointment1.getTestId());
-		 */
+		Integer intObj1 = new Integer(appointment1.getCenterId());
+		String url = "http://localhost:9003/admin/diagnosticCenter/searchCenter/" + intObj1;
+		DiagnosticCenters diagnosticCenterExists = restTemplate.getForObject(url, DiagnosticCenters.class);
+		if (diagnosticCenterExists == null) {
+			logger.warn(diagnosticCenterNotPresent);
+			throw new NoValueFoundException(diagnosticCenterNotPresent);
+		}
+
+		Integer intObj2 = new Integer(appointment1.getTestId());
+		String testurl = "http://localhost:8001/admin/test/searchTest/" + intObj2;
+
+		Tests testExists = restTemplate.getForObject(testurl, Tests.class);
+		if (testExists == null) {
+			logger.warn(diagnosticCenterNotPresent);
+			throw new NoValueFoundException("TestNotPresent");
+		}
 
 		appointment.setCenterId(appointment1.getCenterId());
 		appointment.setUserId(appointment1.getUserId());
 		appointment.setTestId(appointment1.getTestId());
+		appointment.setTestName(testExists.getTestName());
+		appointment.setCenterName(diagnosticCenterExists.getCenterName());
+		appointment.setUserName(userExists.getUserName());
 
 		if (validateDate(appointment1.getDatetime().toLocalDate())) {
 
@@ -233,10 +238,7 @@ public class Appointment_ServiceImpl implements Appointment_Service {
 			throw new NotPossibleException("sorry we can't book your appointment");
 		}
 
-		// appointment.setDatetime(appointment1.getDatetime());
-		// appointment = appointmentRepository.save(appointment);
 		return appointment;
-
 	}
 
 	@Override
@@ -251,7 +253,13 @@ public class Appointment_ServiceImpl implements Appointment_Service {
 		int statusValue = appointment.getApproved();
 		LocalDateTime dateTime = appointment.getDatetime();
 
-		if (statusValue != -1 && statusValue != 1) {
+		if (statusValue == 1) {
+			logger.warn("already approved appointment");
+			throw new NotPossibleException("Appointment is already approved");
+		} else if (statusValue == -1) {
+			logger.warn("Already cancelled appointment");
+			throw new NotPossibleException("Appointment is already cancelled");
+		} else {
 			if ((dateTime.toLocalDate().equals(LocalDate.now())
 					&& Duration.between(dateTime.toLocalTime(), LocalDateTime.now().toLocalTime()).toMinutes() >= 30
 					&& dateTime.toLocalTime().isAfter(LocalTime.now())
@@ -266,15 +274,25 @@ public class Appointment_ServiceImpl implements Appointment_Service {
 
 		}
 
-		else if (statusValue == 1) {
-			logger.warn("already approved appointment");
-			throw new NotPossibleException("Appointment is already approved");
-		} else if (statusValue == -1) {
-			logger.warn("Already cancelled appointment");
-			throw new NotPossibleException("Appointment is already cancelled");
-		}
-
 		return true;
-
+	}
+	
+	@Override
+	public String export(Integer userId) throws IOException {
+		Writer writer = new FileWriter("D:/HeathcarePractice/"+userId+"Report.csv");
+		Appointments a=appointmentRepository.findAll().stream().filter(x -> userId.equals(x.getUserId())).findAny().orElse(null);
+		String ab;
+		if(a.getApproved()==1)
+			ab="approved";
+		else if(a.getApproved()==0)
+			ab="pending";
+		else
+			ab="Cancelled";
+		writer.write("AppointmentId,UserId,UserName,TestId,TestName,CenterId,CenterName,Status,Date\n");
+		writer.write(a.getAppointmentId() + "," + a.getUserId() + ","+a.getUserName() +","+ a.getTestId() + ","+a.getTestName() +","
+				+ a.getCenterId() + "," +a.getCenterName()+ ","+ ab + "," + a.getDatetime());
+		writer.close();
+		
+		return "exported";
 	}
 }
