@@ -1,7 +1,7 @@
 body { 
     margin: 0; 
     font-family: Roboto, "Helvetica Neue", sans-serif; 
-    background-image: url("src/assets/default.jpg");
+    background-image: url("/src/assets/default.jpg");
     background-size:cover;
     background-position:center
     

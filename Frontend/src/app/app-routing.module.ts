@@ -9,28 +9,35 @@ import { ListCenterComponent } from './list-center/list-center.component';
 import { ListTestComponent } from './list-test/list-test.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-
+import { UserDashBoardComponent } from './user-dash-board/user-dash-board.component';
+import { UserListCenterComponent } from './user-list-center/user-list-center.component';
+import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
+import { ViewStatusComponent } from './view-status/view-status.component';
+import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 
 
 const routes: Routes = [
-  { path:'',redirectTo: '/login', pathMatch: 'full'},
-  { path:'login',component:LoginComponent},
-  { path:'register',component:RegisterComponent},
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
 
-
-  
-  { 
-    path:'admin/dashboard',component: AdminDashBoardComponent ,children: [
-    { path:'test/add',component:AddTestComponent},
-    { path:'test/view',component:ListTestComponent},
-    { path:'center/add',component:AddCenterComponent},
-    { path:'center/view',component:ListCenterComponent},
-    { path:'appointments/view',component:ListAppointmentsComponent},
+  {
+    path: 'admin/dashboard', component: AdminDashBoardComponent, children: [
+      { path: 'test/add', component: AddTestComponent },
+      { path: 'test/view', component: ListTestComponent },
+      { path: 'center/add', component: AddCenterComponent },
+      { path: 'center/view', component: ListCenterComponent },
+      { path: 'appointments/view', component: ListAppointmentsComponent }
     ]
   },
-  
-  { path:'customer',component:CustomerComponent}
-  
+
+  {
+    path: 'user/dashboard', component: UserDashBoardComponent, children: [
+      { path: 'userCenter/view', component: UserListCenterComponent },
+      { path: 'MakeAppointment', component: MakeAppointmentComponent },
+      { path: 'viewStatus', component: ViewStatusComponent },
+      { path: 'PersonalDetails/:userId', component: PersonalDetailsComponent }
+    ]
+  },
   // { path: '**', component: ErrorComponent }
 ];
 

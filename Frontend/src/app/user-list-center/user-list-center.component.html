@@ -1,0 +1,119 @@
+<div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <h1 class="text-center"><i class="fas fa-clinic-medical"></i> Diagnostic Centers</h1>
+        </div>
+        <div style="overflow-x: auto;">
+          <div class="container">
+            <div class="form-group float-left">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">
+                    <i class="fa fa-search"></i>
+                  </span>
+                </div>
+                <input (keyup)="onKey($event)" class="form-control" placeholder="Search Center By Name..." />
+              </div>
+            </div>
+          </div>
+          <!-- <div class="alert alert-danger" *ngIf='isDeleteError'>
+              <button href="#" class="close" (click)='isDeleteError = false'>&times;</button>
+              <strong>Error !</strong> Allocated asset can't be removed.
+            </div> -->
+          <table class="table table-hover table-striped table-bordered">
+            <caption *ngIf='isLoading'>
+              <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
+            </caption>
+            <caption *ngIf='!isLoading'>
+              List of all Centers.
+              <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize'>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+              </select>
+              <label class="float-right" style="padding-top: 0.5rem;">Items per
+                page:&nbsp;&nbsp;</label>
+            </caption>
+            <thead class="clickable">
+              <td (click)='sortById()'>
+                <i class="fas fa-sort" *ngIf='sortedById'></i> &nbsp;CenterId Id
+              </td>
+              <td (click)='sortByName()'>
+                <i class="fas fa-sort" *ngIf='sortedByName'></i> &nbsp;Center Name
+              </td>
+
+              <td colspan="2">Action</td>
+            </thead>
+            <tbody>
+              <tr *ngFor='let center of centers1| paginate: { itemsPerPage: bucketSize, currentPage: p}'>
+                <td>{{center.centerId}}</td>
+                <td>{{center.centerName}}</td>
+                <td data-toggle="tooltip"><i (click)='getDetailsById(center.centerId)' class="fas fa-book-medical"
+                    data-toggle="modal" data-target="#detailModal"></i></td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal for view the details -->
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="updateModalLabel"><i class="fas fa-laptop-medical"></i> {{centerNames}}
+        </h2>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div class="container">
+            <div class="row">
+              <div class="col-md-12">
+                <div style="overflow-x: auto;">
+                  <table class="table table-hover table-striped table-bordered">
+                    <caption *ngIf='isLoading'>
+                      <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
+                    </caption>
+                    <caption *ngIf='!isLoading'>
+                      List of all tests.
+                      <select class="form-control float-right col-md-2" [(ngModel)]='Size'>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="15">15</option>
+                      </select>
+                      <label class="float-right" style="padding-top: 0.5rem;">Items per
+                        page:&nbsp;&nbsp;</label>
+                    </caption>
+                    <thead>
+                      <td>Test Id</td>
+                      <td>Test Name</td>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let test of tests| paginate: { itemsPerPage: Size, currentPage: q} ">
+                        <td>{{test.testId}}</td>
+                        <td>{{test.testName}}</td>
+                        <!-- <td data-toggle="tooltip" title="Delete Test">
+                          <i class="fas fa-trash clickable" (click)='remove(test.testId)'></i>
+                        </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                  <pagination-controls (pageChange)="q = $event"></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

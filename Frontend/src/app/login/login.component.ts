@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Login } from 'src/models/login.model';
 import { User } from 'src/models/user.model';
 import { LoginserviceService } from 'src/service/loginservice.service';
@@ -13,14 +13,15 @@ import { LoginserviceService } from 'src/service/loginservice.service';
 export class LoginComponent implements OnInit {
 
 
-  user : User;
-  userr : User;
-  msg='';
+  user: User;
+  userr: User;
+  msg = '';
 
-
+  //custId : string = null
   userName: string = null
   password: string = null
   userType: string = null
+  
 
   loginSucc: boolean = true
   isLogginIn: boolean = false
@@ -28,59 +29,58 @@ export class LoginComponent implements OnInit {
   inputType: string = "password"
   regType: string = "password"
   errMsg: string = "Please enter correct credential.."
-  
-  constructor(private router: Router, private loginservice: LoginserviceService,private route: ActivatedRoute) { 
+
+  constructor(private router: Router, private loginservice: LoginserviceService, private route: ActivatedRoute) {
     this.user = new User();
     this.userr = new User();
-    this.user.gender = null ;
+    this.user.gender = null;
 
   }
 
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(
       args => {
-        if(args.get('redirect'))
+        if (args.get('redirect'))
           this.isInvalidAttempt = true
       }
     )
   }
 
 
-  registerUser(){
+  registerUser() {
     console.log(this.user)
     this.loginservice.registerUser(this.user).subscribe(
-    data=>{
-      console.log("response received");
-      alert('User Registration Successful! Please Login.')
-      this.userr=data;
-      console.log(data);
+      data => {
+        console.log("response received");
+        alert('User Registration Successful! Please Login.')
+        console.log(data);
 
-    },
-    error=>{
-      console.log("exception occured")
-      this.msg="User with same username already exist";
-    })
+      },
+      error => {
+        console.log("exception occured")
+        this.msg = "User with same username already exist";
+      })
   }
 
 
 
 
-    //For view password
-    toggle() {
-      if (this.inputType == "password")
-        this.inputType = "text"
-      else
-        this.inputType = "password"
-    }
+  //For view password
+  toggle() {
+    if (this.inputType == "password")
+      this.inputType = "text"
+    else
+      this.inputType = "password"
+  }
 
 
-    //For view password
-    regToggle() {
-      if (this.regType == "password")
-        this.regType = "text"
-      else
-        this.regType = "password"
-    }
+  //For view password
+  regToggle() {
+    if (this.regType == "password")
+      this.regType = "text"
+    else
+      this.regType = "password"
+  }
 
 
   onSubmit(form: NgForm) {
@@ -92,17 +92,22 @@ export class LoginComponent implements OnInit {
       login.password = this.password
       this.loginservice.loginUser(login).subscribe(
         res => {
-          if (res == null)
+          this.userr = res;
+          console.log(res.role)
+          sessionStorage.setItem('custId',this.userr.userId)
+          if (res == null) {
             this.loginSucc = false
-          this.isLogginIn = false
+            this.isLogginIn = false
+          }
           if (res.role == "admin") {
-            localStorage.setItem('userType', window.btoa("admin"))
+            sessionStorage.setItem('userType', window.btoa("admin"))
             this.router.navigate(['admin/dashboard'])
+
           }
           else if (res.role == "user") {
-            localStorage.setItem('uName', window.btoa(res.userName))
-            localStorage.setItem('userType', window.btoa("user"))
-            this.router.navigate(['user'])
+            sessionStorage.setItem('uName', window.btoa(res.userName))
+            sessionStorage.setItem('userType', window.btoa("user"))
+            this.router.navigate(['user/dashboard'])
           }
         }
       )

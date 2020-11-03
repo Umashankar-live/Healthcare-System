@@ -19,6 +19,11 @@ import { AddCenterComponent } from './add-center/add-center.component';
 import { ListCenterComponent } from './list-center/list-center.component';
 import { ListAppointmentsComponent } from './list-appointments/list-appointments.component';
 import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.component';
+import { UserDashBoardComponent } from './user-dash-board/user-dash-board.component';
+import { UserListCenterComponent } from './user-list-center/user-list-center.component';
+import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
+import { ViewStatusComponent } from './view-status/view-status.component';
+import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,12 @@ import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.com
     AddCenterComponent,
     ListCenterComponent,
     ListAppointmentsComponent,
-    AdminDashBoardComponent
+    AdminDashBoardComponent,
+    UserDashBoardComponent,
+    UserListCenterComponent,
+    MakeAppointmentComponent,
+    ViewStatusComponent,
+    PersonalDetailsComponent
   ],
   imports: [
     BrowserModule,

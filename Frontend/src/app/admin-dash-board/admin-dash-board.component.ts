@@ -25,7 +25,7 @@ export class AdminDashBoardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (window.atob(localStorage.getItem('userType')) !== 'admin')
+    if (window.atob(sessionStorage.getItem('userType')) !== 'admin')
       this.router.navigate([''], {
         queryParams: {
           redirect: true
@@ -49,7 +49,7 @@ export class AdminDashBoardComponent implements OnInit {
   }
 
   logOut() {
-    localStorage.removeItem('userType')
+    sessionStorage.clear();
     this.router.navigate([''])
   }
 
