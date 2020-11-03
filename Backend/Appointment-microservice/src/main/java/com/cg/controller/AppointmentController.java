@@ -2,6 +2,7 @@ package com.cg.controller;
 
 import java.io.IOException;
 import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class AppointmentController {
 	@ApiOperation(value = "approveAppointment", nickname = "approveAppointment")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
-	public void approveAppointment(@PathVariable Integer appointmentId) {
+	public void approveAppointment(@PathVariable Integer appointmentId) throws Exception {
 		appointmentService.approveAppointment(appointmentId);
 	}
 

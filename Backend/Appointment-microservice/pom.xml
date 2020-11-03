@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.3.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>Appointment-microservice</artifactId>
@@ -29,12 +30,22 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
-    		<groupId>junit</groupId>
-    		<artifactId>junit</artifactId>
-    		<version>4.12</version>
-    		<scope>test</scope>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
 		</dependency>
-		
+		<!--This is for sending sms and voice calls -->
+		<dependency>
+			<groupId>com.twilio.sdk</groupId>
+			<artifactId>twilio</artifactId>
+			<version>7.16.1</version>
+		</dependency>
+		<!--This is for sending email -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -50,10 +61,8 @@
 			<version>2.3.3.RELEASE</version>
 
 		</dependency>
-		<!--  <dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>-->
+		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-starter-config</artifactId> 
+			</dependency> -->
 		<!-- Swagger starts -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -69,8 +78,14 @@
 			<version>2.9.1</version>
 		</dependency>
 		<!-- Swagger ends -->
+		<!-- By default swagger uses google's guava, we need to specify our own guava -->
+		<dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>25.1-jre</version>
+        </dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
-		
+
 		<dependency>
 			<groupId>org.sonarsource.scanner.maven</groupId>
 			<artifactId>sonar-maven-plugin</artifactId>

@@ -2,7 +2,13 @@ package com.cg.service;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
+import org.springframework.boot.ApplicationArguments;
 
 import com.cg.bean.Appointments;
 
@@ -22,7 +28,7 @@ public interface AppointmentService {
 
 	List<Appointments> findAppointmentsByDiagnosticCenterId(int diagnosticCenterId);
 
-	boolean approveAppointment(Integer appointmentId);
+	boolean approveAppointment(Integer appointmentId) throws AddressException, MessagingException, IOException, Exception;
 
 	boolean validateDate(LocalDate date);
 
@@ -33,6 +39,12 @@ public interface AppointmentService {
 	Appointments searchAppointmentByAppointmentId(Integer appointmentId);
 
 	String export(Integer userId) throws IOException;
+
+	
+
+	void run(String number, String centername, String testname, LocalDateTime d) throws Exception;
+
+	
 
 	//boolean getPendingAppointmentsForDiagnosticCenter(int diagnosticCenterId);
 
