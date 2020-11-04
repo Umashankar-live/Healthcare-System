@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppointmentModel } from '../../models/appointment.model';
+import { AppointmentService } from '../../service/appointment.service';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-list-appointments',
@@ -8,14 +11,125 @@ import { Router } from '@angular/router';
 })
 export class ListAppointmentsComponent implements OnInit {
 
-  constructor(private route : Router) { }
+  appointment: AppointmentModel[] = [];
+  tempAppointment: AppointmentModel[] = [];
+  appointmentBean: AppointmentModel = new AppointmentModel();
 
-  ngOnInit() {
+  bucketSize: number = 5
+  page: number = 1
+
+
+  //Flags required for interactive UI
+  isAdded: boolean = null
+  isUpdated: boolean = false
+  isLoaded: boolean = false
+  isErrorUpdating: boolean = false
+
+  sortedById: boolean = null
+  sortedByName: boolean = null
+  sortedByDes: boolean = null
+  isDeleteError: boolean = false
+  sortedByAppointmentId: boolean = false;
+  pendingAppoints: any[] = [] ;
+  allAppoints: any[] = [] ;
+  tempAppoints: AppointmentModel[];
+
+  constructor(private route: Router, private service: AppointmentService) {
+
   }
 
-  logout(){
+  ngOnInit(): void {
+
+    this.service.fetchAllAppointment().subscribe(
+      res => {
+        this.isLoaded = true
+        this.appointment = res
+        this.tempAppointment = res
+        this.sortByAppointmentId();
+      }
+    )
+
+    
+
+    /* this.allocationService.viewPending().subscribe(
+      res => {
+        this.pendingAllocations = res
+      }
+    )
+ */
+  
+
+    /* this.activatedRoute.queryParamMap.subscribe(
+      args => {
+        if (args != null)
+          assetId = args.get('assetId')
+        this.allocation.assetId = assetId
+      }
+    ) */
+  }
+
+  //Sort by allocation id
+  sortByAppointmentId() {
+    this.appointment.sort(this.sortByProperty('appointmentId'))
+    this.sortedByAppointmentId = true
+  }
+
+  //Function to sort property of an array
+  sortByProperty(property) {
+    return function (a, b) {
+      if (a[property] > b[property])
+        return 1;
+      else if (a[property] < b[property])
+        return -1;
+
+      return 0;
+    }
+  }
+
+
+  viewPending() {
+    this.appointment = this.tempAppointment.filter(appointmentBean => appointmentBean.status == 'pending')
+  }
+
+  onKeyUpAll(event: any) {
+    this.appointment = this.appointment.filter(appointmentBean => appointmentBean.userName.includes(event.target.value))
+    if (event.target.value == '' || event.target.value == undefined) {
+      this.appointment = this.tempAppointment
+    }
+  }
+
+  viewApproved() {
+    this.appointment = this.tempAppointment.filter(appointmentBean => appointmentBean.status == 'approved')
+  }
+
+  viewRejected() {
+    this.appointment = this.tempAppointment.filter(appointmentBean => appointmentBean.status == 'rejected')
+  }
+
+
+
+
+  /* remove(appointmentId: number) {
+
+    this.service.deleteappointment(appointmentId).subscribe((res) => {
+
+      if (res == -1)
+        this.isDeleteError = true
+
+      else {
+        this.appointment = []
+        this.ngOnInit()
+      }
+    })
+
+
+  } */
+
+
+
+
+  logout() {
     sessionStorage.clear();
     this.route.navigate(['login']);
   }
-
 }

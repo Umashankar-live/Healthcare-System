@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   userName: string = null
   password: string = null
   userType: string = null
-  
+
 
   loginSucc: boolean = true
   isLogginIn: boolean = false
@@ -91,20 +91,20 @@ export class LoginComponent implements OnInit {
       login.userName = this.userName
       login.password = this.password
       this.loginservice.loginUser(login).subscribe(
-        res => {
-          this.userr = res;
-          console.log(res.role)
-          sessionStorage.setItem('custId',this.userr.userId)
+        res => {console.log(res);
+          
           if (res == null) {
             this.loginSucc = false
             this.isLogginIn = false
           }
-          if (res.role == "admin") {
+          else if (res.role == "admin") {
+            sessionStorage.setItem('custId', res.userId)
             sessionStorage.setItem('userType', window.btoa("admin"))
             this.router.navigate(['admin/dashboard'])
 
           }
           else if (res.role == "user") {
+            sessionStorage.setItem('custId', res.userId)
             sessionStorage.setItem('uName', window.btoa(res.userName))
             sessionStorage.setItem('userType', window.btoa("user"))
             this.router.navigate(['user/dashboard'])
