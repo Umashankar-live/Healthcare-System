@@ -40,7 +40,7 @@ public class Appointments {
 	private String centerName;
 
 	@Column(name = "Status")
-	private String approved;
+	private String status;
 
 	@NotNull(message = "Please specify a date for appointment")
 	@Column(name = "Date")
@@ -91,14 +91,14 @@ public class Appointments {
 
 	}
 
-	public Appointments(Integer appointmentId, int userId, int testId, int centerId, String approved,
+	public Appointments(Integer appointmentId, int userId, int testId, int centerId, String status,
 			LocalDateTime dateTime) {
 		super();
 		this.appointmentId = appointmentId;
 		this.userId = userId;
 		this.testId = testId;
 		this.centerId = centerId;
-		this.approved = approved;
+		this.status = status;
 		this.dateTime = dateTime;
 	}
 
@@ -134,12 +134,14 @@ public class Appointments {
 		this.dateTime = dateTime;
 	}
 
-	public String getApproved() {
-		return approved;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setApproved(String approved) {
-		this.approved = approved;
+	public void setStatus(String status) {
+		this.status = status;
 	}
+
+	
 
 }

@@ -135,7 +135,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 			throw new NoValueFoundException(appointmentNotPresent);
 		}
 
-		return appointment.getApproved();
+		return appointment.getStatus();
 
 	}
 
@@ -219,7 +219,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 				&& appointment.getDatetime().toLocalTime().isBefore(LocalTime.now())) {
 			return "Appointment Time is already passed";
 		}
-		appointment.setApproved("rejected");
+		appointment.setStatus("rejected");
 		this.appointmentRepository.save(appointment);
 
 		return "Appointment Cancelled!!";
@@ -257,7 +257,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		Appointments appointment = new Appointments();
 
 		appointment.setAppointmentId(null);
-		appointment.setApproved("pending"); // 0 is pending , so by default it will be pending
+		appointment.setStatus("pending"); // 0 is pending , so by default it will be pending
 
 		Integer intObj = new Integer(appointment1.getUserId());
 		User userExists = restTemplate.getForObject("http://localhost:9008/user/searchUser/" + intObj, User.class);
@@ -316,7 +316,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 			throw new NoValueFoundException(appointmentNotPresent);
 		}
 
-		String statusValue = appointment.getApproved();
+		String statusValue = appointment.getStatus();
 		LocalDateTime dateTime = appointment.getDatetime();
 
 		if (statusValue == "pending") {
@@ -330,7 +330,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 					&& Duration.between(dateTime.toLocalTime(), LocalDateTime.now().toLocalTime()).toMinutes() >= 30
 					&& dateTime.toLocalTime().isAfter(LocalTime.now())
 					|| dateTime.isAfter(LocalDateTime.now()) && !dateTime.toLocalDate().equals(LocalDate.now()))) {
-				appointment.setApproved("approved"); // can be also given a agrument as (Boolean.TRUE) if it isnt
+				appointment.setStatus("approved"); // can be also given a agrument as (Boolean.TRUE) if it isnt
 														// approving the
 				// request , try changing this
 				appointmentRepository.save(appointment);
@@ -361,7 +361,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 		writer.write("AppointmentId,UserId,UserName,TestId,TestName,CenterId,CenterName,Status,Date\n");
 		writer.write(a.getAppointmentId() + "," + a.getUserId() + "," + a.getUserName() + "," + a.getTestId() + ","
-				+ a.getTestName() + "," + a.getCenterId() + "," + a.getCenterName() + "," + a.getApproved() + ","
+				+ a.getTestName() + "," + a.getCenterId() + "," + a.getCenterName() + "," + a.getStatus() + ","
 				+ a.getDatetime());
 		writer.close();
 

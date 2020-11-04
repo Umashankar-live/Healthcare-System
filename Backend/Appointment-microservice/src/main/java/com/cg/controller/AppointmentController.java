@@ -34,12 +34,6 @@ public class AppointmentController {
 	private AppointmentService appointmentService;
 
 	// "2020-10-29T04:10:22.293+00:00"
-	/*
-	 * This method is used to check status of the appointment based on appointmentId
-	 * provided in the form of query. Status is having 3 values. '1' for approved
-	 * appointments, '-1', for cancelled appointments,'0' for pending.
-	 */
-
 	// URL=http://localhost:9010/appointments/status/{appointmentId}
 	@GetMapping("/status/{appointmentId}")
 	@ApiOperation(value = "getStatus", nickname = "getStatus")
@@ -102,7 +96,7 @@ public class AppointmentController {
 	/***
 	 * 
 	 * { "appointmentId": "2", "userId": "3", "centerId": "6", "testId": "1",
-	 * "approved": "0", "dateTime": "2020-11-05 09:09:09" }
+	 * "status": "pending", "dateTime": "2020-11-05 09:09:09" }
 	 */
 	// URL=http://localhost:9010/appointments/makeAppointment
 	@PostMapping(value = "/makeAppointment", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
