@@ -146,4 +146,14 @@ public class AppointmentController {
 		return this.appointmentService.export(userId);
 	}
 
+	// URL=http://localhost:9010/appointments/getAllAppointments
+	@GetMapping("/getAllAppointments")
+	@ApiOperation(value = "getAllAppointment", nickname = "AllUserList")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
+			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
+	public List<Appointments> getAllAppointment() {
+
+		return appointmentService.findallAppointments();
+	}
+
 }

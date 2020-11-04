@@ -32,7 +32,7 @@ public class AppointmentServiceTest {
 		appointment.setUserId(13);
 		appointment.setTestId(13);
 		appointment.setCenterId(3);
-		appointment.setApproved(0);
+		appointment.setApproved("pending");
 		appointment.setDatetime(LocalDateTime.parse("2020-12-30T00:00:00"));
 	}
 	

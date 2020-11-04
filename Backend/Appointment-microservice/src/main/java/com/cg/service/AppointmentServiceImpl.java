@@ -13,15 +13,12 @@ import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
-import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,21 +72,22 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public Appointments findAppointmentsbyId(Integer a) {
 		return appointmentRepository.findByAppointmentId(a);
 	}
+
 	@Override
-	public void run(String number,String centername,String testname,LocalDateTime d) throws Exception {
-		String s= "+91"+number;
-		com.twilio.rest.api.v2010.account.Message
-				.creator(new PhoneNumber(s), new PhoneNumber("+12018856810"), "Your appointment is approved for test:"
-						+testname+", at center:"+
-						centername+", on date :"+d)
+	public void run(String number, String centername, String testname, LocalDateTime d) throws Exception {
+		String s = "+91" + number;
+		com.twilio.rest.api.v2010.account.Message.creator(new PhoneNumber(s), new PhoneNumber("+12018856810"),
+				"Your appointment is approved for test:" + testname + ", at center:" + centername + ", on date :" + d)
 				.create();
-		//for twilio calls 
-		// Call.creator(new PhoneNumber("<to-number>"), new PhoneNumber("<from-number>"),
-        // new URI("http://demo.twilio.com/docs/voice.xml")).create();
-		
+		// for twilio calls
+		// Call.creator(new PhoneNumber("<to-number>"), new
+		// PhoneNumber("<from-number>"),
+		// new URI("http://demo.twilio.com/docs/voice.xml")).create();
+
 	}
 
-	private void sendmail(String email,String centername,String testname,LocalDateTime d) throws AddressException, MessagingException, IOException {
+	private void sendmail(String email, String centername, String testname, LocalDateTime d)
+			throws AddressException, MessagingException, IOException {
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
@@ -106,13 +104,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 		msg.setSubject("Approval  email");
-		msg.setContent("Your appointment is approved for test:"+testname+", at center:"+
-		centername+", on date :"+d, "text/html");
+		msg.setContent(
+				"Your appointment is approved for test:" + testname + ", at center:" + centername + ", on date :" + d,
+				"text/html");
 		msg.setSentDate(new Date());
 
 		MimeBodyPart messageBodyPart = new MimeBodyPart();
-		messageBodyPart.setContent("Your appointment is approved for test:"+testname+", at center:"+
-			centername+", on date :"+d, "text/html");
+		messageBodyPart.setContent(
+				"Your appointment is approved for test:" + testname + ", at center:" + centername + ", on date :" + d,
+				"text/html");
 
 		/*
 		 * Multipart multipart = new MimeMultipart();
@@ -122,7 +122,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		 * attachPart.attachFile("C:/Users/Isha Pawar/Desktop/New Project/approved.jpg"
 		 * ); multipart.addBodyPart(attachPart); msg.setContent(multipart);
 		 * Transport.send(msg);
-		 */	}
+		 */ }
 
 	// Method to check appointment Status
 	@Override
@@ -134,13 +134,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 			logger.warn("check appointment status failed, no appointmentId");
 			throw new NoValueFoundException(appointmentNotPresent);
 		}
-		String status = "pending";
-		int statusValue = appointment.getApproved();
-		if (statusValue == 1)
-			status = "Approved";
-		else if (statusValue == -1)
-			status = "Cancelled";
-		return status;
+
+		return appointment.getApproved();
 
 	}
 
@@ -224,7 +219,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 				&& appointment.getDatetime().toLocalTime().isBefore(LocalTime.now())) {
 			return "Appointment Time is already passed";
 		}
-		appointment.setApproved(-1);
+		appointment.setApproved("rejected");
 		this.appointmentRepository.save(appointment);
 
 		return "Appointment Cancelled!!";
@@ -262,7 +257,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		Appointments appointment = new Appointments();
 
 		appointment.setAppointmentId(null);
-		appointment.setApproved(0); // 0 is pending , so by default it will be pending
+		appointment.setApproved("pending"); // 0 is pending , so by default it will be pending
 
 		Integer intObj = new Integer(appointment1.getUserId());
 		User userExists = restTemplate.getForObject("http://localhost:9008/user/searchUser/" + intObj, User.class);
@@ -321,13 +316,13 @@ public class AppointmentServiceImpl implements AppointmentService {
 			throw new NoValueFoundException(appointmentNotPresent);
 		}
 
-		int statusValue = appointment.getApproved();
+		String statusValue = appointment.getApproved();
 		LocalDateTime dateTime = appointment.getDatetime();
 
-		if (statusValue == 1) {
+		if (statusValue == "pending") {
 			logger.warn("already approved appointment");
 			throw new NotPossibleException("Appointment is already approved");
-		} else if (statusValue == -1) {
+		} else if (statusValue == "rejected") {
 			logger.warn("Already cancelled appointment");
 			throw new NotPossibleException("Appointment is already cancelled");
 		} else {
@@ -335,15 +330,19 @@ public class AppointmentServiceImpl implements AppointmentService {
 					&& Duration.between(dateTime.toLocalTime(), LocalDateTime.now().toLocalTime()).toMinutes() >= 30
 					&& dateTime.toLocalTime().isAfter(LocalTime.now())
 					|| dateTime.isAfter(LocalDateTime.now()) && !dateTime.toLocalDate().equals(LocalDate.now()))) {
-				appointment.setApproved(1); // can be also given a agrument as (Boolean.TRUE) if it isnt approving the
-											// request , try changing this
+				appointment.setApproved("approved"); // can be also given a agrument as (Boolean.TRUE) if it isnt
+														// approving the
+				// request , try changing this
 				appointmentRepository.save(appointment);
 				Integer intObj = new Integer(appointment.getUserId());
 				User user = restTemplate.getForObject("http://localhost:9008/user/searchUser/" + intObj, User.class);
-				sendmail(user.getEmail(),appointment.getCenterName(),appointment.getTestName(),appointment.getDatetime());
-				//com.twilio.rest.api.v2010.account.Message.creator(new PhoneNumber("9822519697"),
-					//	new PhoneNumber("7775014191"), "Your appointment is approved").create();
-				run(user.getMobileNo(),appointment.getCenterName(),appointment.getTestName(),appointment.getDatetime());
+				sendmail(user.getEmail(), appointment.getCenterName(), appointment.getTestName(),
+						appointment.getDatetime());
+				// com.twilio.rest.api.v2010.account.Message.creator(new
+				// PhoneNumber("9822519697"),
+				// new PhoneNumber("7775014191"), "Your appointment is approved").create();
+//				run(user.getMobileNo(), appointment.getCenterName(), appointment.getTestName(),
+//						appointment.getDatetime());
 			} else {
 				logger.warn("Appointment date is missed");
 				throw new NotPossibleException("Appointment date and time is already missed!!");
@@ -359,16 +358,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 		Writer writer = new FileWriter("C:/Users/Isha Pawar/Desktop/New Project/user" + userId + "Report.csv");
 		Appointments a = appointmentRepository.findAll().stream().filter(x -> userId.equals(x.getUserId())).findAny()
 				.orElse(null);
-		String ab;
-		if (a.getApproved() == 1)
-			ab = "approved";
-		else if (a.getApproved() == 0)
-			ab = "pending";
-		else
-			ab = "Cancelled";
+
 		writer.write("AppointmentId,UserId,UserName,TestId,TestName,CenterId,CenterName,Status,Date\n");
 		writer.write(a.getAppointmentId() + "," + a.getUserId() + "," + a.getUserName() + "," + a.getTestId() + ","
-				+ a.getTestName() + "," + a.getCenterId() + "," + a.getCenterName() + "," + ab + "," + a.getDatetime());
+				+ a.getTestName() + "," + a.getCenterId() + "," + a.getCenterName() + "," + a.getApproved() + ","
+				+ a.getDatetime());
 		writer.close();
 
 		return "exported";

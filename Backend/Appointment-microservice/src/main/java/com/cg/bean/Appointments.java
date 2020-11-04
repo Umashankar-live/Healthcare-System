@@ -40,7 +40,7 @@ public class Appointments {
 	private String centerName;
 
 	@Column(name = "Status")
-	private int approved;
+	private String approved;
 
 	@NotNull(message = "Please specify a date for appointment")
 	@Column(name = "Date")
@@ -53,10 +53,6 @@ public class Appointments {
 
 	public void setAppointmentId(Integer appointmentId) {
 		this.appointmentId = appointmentId;
-	}
-
-	public int getApproved() {
-		return approved;
 	}
 
 	public int getUserId() {
@@ -83,10 +79,6 @@ public class Appointments {
 		this.centerId = centerId;
 	}
 
-	public void setApproved(int approved) {
-		this.approved = approved;
-	}
-
 	public LocalDateTime getDatetime() {
 		return dateTime;
 	}
@@ -95,21 +87,11 @@ public class Appointments {
 		this.dateTime = datetime;
 	}
 
-	public Appointments(int userId, int testId, int centerId, int approved, LocalDateTime dateTime) {
-		super();
-		this.userId = userId;
-		this.testId = testId;
-		this.centerId = centerId;
-		this.approved = approved;
-		this.dateTime = dateTime;
-	}
-
 	public Appointments() {
-		super();
-		// TODO Auto-generated constructor stub
+
 	}
 
-	public Appointments(Integer appointmentId, int userId, int testId, int centerId, int approved,
+	public Appointments(Integer appointmentId, int userId, int testId, int centerId, String approved,
 			LocalDateTime dateTime) {
 		super();
 		this.appointmentId = appointmentId;
@@ -150,6 +132,14 @@ public class Appointments {
 
 	public void setDateTime(LocalDateTime dateTime) {
 		this.dateTime = dateTime;
+	}
+
+	public String getApproved() {
+		return approved;
+	}
+
+	public void setApproved(String approved) {
+		this.approved = approved;
 	}
 
 }
