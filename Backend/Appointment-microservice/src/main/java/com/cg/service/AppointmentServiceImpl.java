@@ -205,7 +205,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	// Method to cancel appointment by appointment Id.
 	@Override
-	public String cancelAppointment(Integer appointmentId) {
+	public Appointments cancelAppointment(Integer appointmentId) {
 
 		Appointments appointment = appointmentRepository.findByAppointmentId(appointmentId);
 		if (appointment == null) {
@@ -214,15 +214,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 		}
 
 		if (appointment.getDatetime().toLocalDate().isBefore(LocalDate.now())) {
-			return "Appointment Date is already passed";
+			return null;
 		} else if (appointment.getDatetime().toLocalDate() == LocalDate.now()
 				&& appointment.getDatetime().toLocalTime().isBefore(LocalTime.now())) {
-			return "Appointment Time is already passed";
+			return null;
 		}
 		appointment.setStatus("rejected");
-		this.appointmentRepository.save(appointment);
+		appointment = this.appointmentRepository.save(appointment);
 
-		return "Appointment Cancelled!!";
+		return appointment;
 	}
 
 	// Method to return boolean value by checking if appointment exists in database
@@ -308,9 +308,10 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 
 	@Override
-	public boolean approveAppointment(Integer appointmentId) throws Exception {
+	public Appointments approveAppointment(Integer appointmentId) throws Exception {
 
 		Appointments appointment = appointmentRepository.findByAppointmentId(appointmentId);
+		
 		if (appointment == null) {
 			logger.warn(appointmentNotPresent);
 			throw new NoValueFoundException(appointmentNotPresent);
@@ -333,7 +334,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 				appointment.setStatus("approved"); // can be also given a agrument as (Boolean.TRUE) if it isnt
 														// approving the
 				// request , try changing this
-				appointmentRepository.save(appointment);
+				appointment = appointmentRepository.save(appointment);
 				Integer intObj = new Integer(appointment.getUserId());
 				User user = restTemplate.getForObject("http://localhost:9008/user/searchUser/" + intObj, User.class);
 				sendmail(user.getEmail(), appointment.getCenterName(), appointment.getTestName(),
@@ -350,7 +351,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 		}
 
-		return true;
+		return appointment;
 	}
 
 	@Override

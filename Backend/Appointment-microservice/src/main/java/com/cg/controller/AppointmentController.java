@@ -75,8 +75,8 @@ public class AppointmentController {
 	@ApiOperation(value = "approveAppointment", nickname = "approveAppointment")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
-	public void approveAppointment(@PathVariable Integer appointmentId) throws Exception {
-		appointmentService.approveAppointment(appointmentId);
+	public Appointments approveAppointment(@PathVariable Integer appointmentId) throws Exception {
+		return appointmentService.approveAppointment(appointmentId);
 	}
 
 	// This method is to cancel the appointments based on appointmentId provided.
@@ -85,7 +85,7 @@ public class AppointmentController {
 	@ApiOperation(value = "cancelAppointment", nickname = "cancelAppointment")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
-	public String cancelAppointment(@PathVariable int appointmentId) {
+	public Appointments cancelAppointment(@PathVariable int appointmentId) {
 		return this.appointmentService.cancelAppointment(appointmentId);
 	}
 

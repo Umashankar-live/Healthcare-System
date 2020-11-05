@@ -8,8 +8,6 @@ import java.util.List;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 
-import org.springframework.boot.ApplicationArguments;
-
 import com.cg.bean.Appointments;
 
 public interface AppointmentService {
@@ -28,11 +26,11 @@ public interface AppointmentService {
 
 	List<Appointments> findAppointmentsByDiagnosticCenterId(int diagnosticCenterId);
 
-	boolean approveAppointment(Integer appointmentId) throws AddressException, MessagingException, IOException, Exception;
+	Appointments approveAppointment(Integer appointmentId) throws AddressException, MessagingException, IOException, Exception;
 
 	boolean validateDate(LocalDate date);
 
-	String cancelAppointment(Integer appointmentId);
+	Appointments cancelAppointment(Integer appointmentId);
 
 	boolean checkAppointmentByAppointmentId(Integer appointmentId);
 
