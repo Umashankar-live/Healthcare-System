@@ -2,6 +2,7 @@ package com.cg.controller;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -71,7 +72,7 @@ public class AppointmentController {
 
 	// This method is used to approve any appointment by providing the appointment
 	// URL=http://localhost:9010/appointments/approve/{appointmentId}
-	@PutMapping("/approve/{appointmentId}")
+	@GetMapping("/approve/{appointmentId}")
 	@ApiOperation(value = "approveAppointment", nickname = "approveAppointment")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
@@ -81,7 +82,7 @@ public class AppointmentController {
 
 	// This method is to cancel the appointments based on appointmentId provided.
 	// URL=http://localhost:9010/appointments/cancel/{appointmentId}
-	@PutMapping("/cancel/{appointmentId}")
+	@GetMapping("/cancel/{appointmentId}")
 	@ApiOperation(value = "cancelAppointment", nickname = "cancelAppointment")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
@@ -149,5 +150,23 @@ public class AppointmentController {
 
 		return appointmentService.findallAppointments();
 	}
+	
+	// URL=http://localhost:9010/appointments/getPendingCount
+		@GetMapping("/getPendingCount")
+		@ApiOperation(value = "getPendingCount", nickname = "PendingCount")
+		@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
+				@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
+		public int getPendingCount() {
+
+		List<Appointments> pending = appointmentService.findallAppointments();
+		int pendingCount = pending.stream().filter(c -> c.getStatus().equalsIgnoreCase("pending")).collect(Collectors.toList()).size();
+		
+		System.out.println(pendingCount);
+		return pendingCount ;
+		}
+		
+	
+	
+	
 
 }

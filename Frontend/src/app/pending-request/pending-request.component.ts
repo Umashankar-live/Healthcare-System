@@ -30,12 +30,12 @@ export class PendingRequestComponent implements OnInit {
   sortedByDes: boolean = null
   isDeleteError: boolean = false
   sortedByAppointmentId: boolean = false;
-  pendingAppoints: AppointmentModel[] = [] ;
+  pendingAppoints: AppointmentModel[] = [];
   isStatusChanging: boolean = false;
 
   constructor(private route: Router, private service: AppointmentService) { }
 
-  
+
   ngOnInit(): void {
 
     this.service.fetchAllAppointment().subscribe(
@@ -47,7 +47,7 @@ export class PendingRequestComponent implements OnInit {
       }
     )
 
-    
+
   }
 
   //Sort by allocation id
@@ -80,23 +80,28 @@ export class PendingRequestComponent implements OnInit {
   changeStatus(appointmentId: number, status: string) {
     this.isStatusChanging = true
 
-    if(status == "approved"){
-    this.service.approvedStatus(appointmentId).subscribe(
-      res => {
-        if (res == null)
-          alert('Error occured');
-        else
-          this.ngOnInit()
-      }
-    )}
+    if (status == "approved") {
+      this.service.approvedStatus(appointmentId).subscribe(
+        res => {
+          if (res == null)
+            alert('Error occured');
+          else {
+            alert('Appointment is Approved.. !!')
+            this.ngOnInit()
+          }
+        }
+      )
+    }
 
-    else if(status == "rejected"){
+    else if (status == "rejected") {
       this.service.rejectedStatus(appointmentId).subscribe(
         res => {
           if (res == null)
             alert('Error occured');
-          else
+          else {
+            alert('Appointment is Rejected.. !!')
             this.ngOnInit()
+          }
         }
       )
 

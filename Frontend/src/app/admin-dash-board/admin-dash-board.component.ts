@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CenterService } from 'src/service/center.service';
 import { TestService } from 'src/service/test.service';
+import {AppointmentService} from 'src/service/appointment.service';
 
 @Component({
   selector: 'app-admin-dash-board',
@@ -21,7 +22,7 @@ export class AdminDashBoardComponent implements OnInit {
   isLoadingCenters: boolean = true
   
 
-  constructor(public router: Router, public testService: TestService,public centerService: CenterService) { }
+  constructor(public router: Router, public testService: TestService,public centerService: CenterService,public appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
 
@@ -46,6 +47,13 @@ export class AdminDashBoardComponent implements OnInit {
       }
     )
 
+    this.appointmentService.countPending().subscribe(
+      res => {
+        this.pendingCount = res
+        this.isLoadingPending = false
+      }
+    )
+
   }
 
   logOut() {
@@ -63,6 +71,11 @@ export class AdminDashBoardComponent implements OnInit {
       this.sidebarClass = ""
       this.menuToggleClass = "container1 clickable"
     }
+  }
+
+  adminRefresh(){
+    this.ngOnInit();
+    this.router.navigate(["/admin/dashboard"]);
   }
 
 }

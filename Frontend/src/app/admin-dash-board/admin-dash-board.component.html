@@ -4,7 +4,7 @@
       <div id="sidebar-wrapper">
           <ul class="sidebar-nav clickable"> <br>
               <li class="sidebar-brand ">
-                  <a class="h2" routerLink="/admin/dashboard">
+                  <a class="h2" (click) = adminRefresh()>
                       <i class="fas fa-user-cog"></i> Admin
                   </a>
                   <hr>
@@ -144,7 +144,7 @@
                                   </h1>
                               </div>
                               <div class="col-md-8 card-body">
-                                  <p class="h4">Pending Appointments</p>
+                                  <p class="h4">Pending Requests</p>
                               </div>
                           </div>
                       </div>
