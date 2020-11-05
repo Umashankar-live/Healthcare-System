@@ -15,6 +15,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -88,19 +89,20 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	private void sendmail(String email, String centername, String testname, LocalDateTime d)
 			throws AddressException, MessagingException, IOException {
+		System.out.println(email);
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.host", "smtp.googlemail.com");
 		props.put("mail.smtp.port", "587");
 
 		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication("yash.pawar642@gmail.com", "yash@123456");
+				return new PasswordAuthentication("healthcaresystem12@gmail.com", "hcs@1234");
 			}
 		});
 		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress("yash.pawar642@gmail.com", false));
+		msg.setFrom(new InternetAddress("healthcaresystem12@gmail.com", false));
 
 		msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
 		msg.setSubject("Approval  email");
@@ -113,7 +115,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		messageBodyPart.setContent(
 				"Your appointment is approved for test:" + testname + ", at center:" + centername + ", on date :" + d,
 				"text/html");
-
+		Transport.send(msg);
 		/*
 		 * Multipart multipart = new MimeMultipart();
 		 * multipart.addBodyPart(messageBodyPart); MimeBodyPart attachPart = new
@@ -121,7 +123,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		 * 
 		 * attachPart.attachFile("C:/Users/Isha Pawar/Desktop/New Project/approved.jpg"
 		 * ); multipart.addBodyPart(attachPart); msg.setContent(multipart);
-		 * Transport.send(msg);
+		   Transport.send(msg);
 		 */ }
 
 	// Method to check appointment Status

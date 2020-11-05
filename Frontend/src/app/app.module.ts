@@ -4,14 +4,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
-import { UserComponent } from './user/user.component';
+
 import { HttpClientModule } from '@angular/common/http';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
-import { RegisterComponent } from './register/register.component';
+
 import { CustomerComponent } from './customer/customer.component';
 import { AddTestComponent } from './add-test/add-test.component';
 import { ListTestComponent } from './list-test/list-test.component';
@@ -30,11 +30,10 @@ import { PendingRequestComponent } from './pending-request/pending-request.compo
   declarations: [
     AppComponent,
     LoginComponent,
-    UserComponent,
-    RegisterComponent,
+
     AppComponent,
     LoginComponent,
-    RegisterComponent,
+
     CustomerComponent,
     AddTestComponent,
     ListTestComponent,
