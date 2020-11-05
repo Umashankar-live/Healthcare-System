@@ -11,7 +11,7 @@
                 <input (keyup)='onKeyUpAll($event)' class="form-control" placeholder="Search By UserName..." />
             </div>
             <div ngbDropdown class="float-right">
-                <button class="btn" id="dropdownBasic1" ngbDropdownToggle >View By Status</button>
+                <button class="btn" id="dropdownBasic1" ngbDropdownToggle>View By Status</button>
                 <br>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                     <button class="dropdown-item" (click)='appointment = tempAppointment'>All</button>
@@ -25,7 +25,8 @@
                     <div class="spinner spinner-border"></div> Loading...
                 </caption>
                 <thead class="clickable">
-                    <td>Appointment Id</td>
+                    <td (click)='sortByAppointmentId()'> <i *ngIf='sortByAppointmentId()'
+                            class="fa fa-sort"></i>Appointment Id</td>
                     <td>User Name</td>
                     <td>Test Name</td>
                     <td>Center Name</td>

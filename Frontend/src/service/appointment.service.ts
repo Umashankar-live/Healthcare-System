@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppointmentService {
   
-
   constructor(private http: HttpClient) { }
 
   fetchAllAppointment() {
@@ -18,5 +17,14 @@ export class AppointmentService {
   deleteappointment(appointmentId: number) {
     return this.http.delete("http://localhost:9010/appointments/getAllAppointments"+appointmentId);
     }
+
+    rejectedStatus(appointmentId: number) {
+      return this.http.put<AppointmentModel[]>("http://localhost:9010/appointments/approve/"+appointmentId);
+    }
+    approvedStatus(appointmentId: number) {
+      throw new Error('Method not implemented.');
+    }
+
+  
 
 }

@@ -24,6 +24,7 @@ import { UserListCenterComponent } from './user-list-center/user-list-center.com
 import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
 import { ViewStatusComponent } from './view-status/view-status.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
+import { PendingRequestComponent } from './pending-request/pending-request.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { PersonalDetailsComponent } from './personal-details/personal-details.co
     UserListCenterComponent,
     MakeAppointmentComponent,
     ViewStatusComponent,
-    PersonalDetailsComponent
+    PersonalDetailsComponent,
+    PendingRequestComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppointmentModel } from '../../models/appointment.model';
 import { AppointmentService } from '../../service/appointment.service';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-list-appointments',
