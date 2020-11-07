@@ -12,7 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 
-import { CustomerComponent } from './customer/customer.component';
+
 import { AddTestComponent } from './add-test/add-test.component';
 import { ListTestComponent } from './list-test/list-test.component';
 import { AddCenterComponent } from './add-center/add-center.component';
@@ -21,20 +21,18 @@ import { ListAppointmentsComponent } from './list-appointments/list-appointments
 import { AdminDashBoardComponent } from './admin-dash-board/admin-dash-board.component';
 import { UserDashBoardComponent } from './user-dash-board/user-dash-board.component';
 import { UserListCenterComponent } from './user-list-center/user-list-center.component';
-import { MakeAppointmentComponent } from './make-appointment/make-appointment.component';
+
 import { ViewStatusComponent } from './view-status/view-status.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { PendingRequestComponent } from './pending-request/pending-request.component';
+import { UserListTestComponent } from './user-list-test/user-list-test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-
     AppComponent,
     LoginComponent,
-
-    CustomerComponent,
     AddTestComponent,
     ListTestComponent,
     AddCenterComponent,
@@ -43,10 +41,11 @@ import { PendingRequestComponent } from './pending-request/pending-request.compo
     AdminDashBoardComponent,
     UserDashBoardComponent,
     UserListCenterComponent,
-    MakeAppointmentComponent,
+   
     ViewStatusComponent,
     PersonalDetailsComponent,
-    PendingRequestComponent
+    PendingRequestComponent,
+    UserListTestComponent
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <h1 class="text-center"><i class="fas fa-clinic-medical"></i> Diagnostic Centers</h1>
+          <h1 class="text-center"><i class="fas fa-clinic-medical"></i> Select Diagnostic Centers</h1>
         </div>
         <div style="overflow-x: auto;">
           <div class="container">
@@ -44,7 +44,8 @@
                 <i class="fas fa-sort" *ngIf='sortedByName'></i> &nbsp;Center Name
               </td>
 
-              <td colspan="2">Action</td>
+              <td>View Details</td>
+              <td>Select</td>
             </thead>
             <tbody>
               <tr *ngFor='let center of centers1| paginate: { itemsPerPage: bucketSize, currentPage: p}'>
@@ -52,6 +53,7 @@
                 <td>{{center.centerName}}</td>
                 <td data-toggle="tooltip"><i (click)='getDetailsById(center.centerId)' class="fas fa-book-medical"
                     data-toggle="modal" data-target="#detailModal"></i></td>
+                <td><button (click)='selectTestFromCenter(center.centerId)'>Select</button></td>
               </tr>
             </tbody>
           </table>

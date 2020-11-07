@@ -1,0 +1,61 @@
+<div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <h1 class="text-center"><i class="fas fa-notes-medical
+            "></i>Select Test</h1>
+        </div>
+        <div style="overflow-x: auto;">
+          <div class="container">
+            <div class="form-group float-left">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">
+                    <i class="fa fa-search"></i>
+                  </span>
+                </div>
+                <input (keyup)="onKey($event)" class="form-control" placeholder="Search Test By Name..." />
+              </div>
+            </div>
+          </div>
+          <table class="table table-hover table-striped custab">
+            <caption *ngIf='isLoading'>
+              <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
+            </caption>
+            <caption *ngIf='!isLoading'>
+              List of all tests.
+              <select class="form-control float-right col-md-2" [(ngModel)]='bucketSize'>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+              </select>
+              <label class="float-right" style="padding-top: 0.5rem;">Items per
+                page:&nbsp;&nbsp;</label>
+            </caption>
+            <thead class="clickable">
+              <td (click)='sortById()'>
+                <i class="fas fa-sort" *ngIf='sortedById'></i> &nbsp;Test Id
+              </td>
+              <td (click)='sortByName()'>
+                <i class="fas fa-sort" *ngIf='sortedByName'></i> &nbsp;Test Name
+              </td>
+              <td>Action</td>
+            </thead>
+            <tbody>
+              <tr *ngFor='let test of tests1| paginate: { itemsPerPage: bucketSize, currentPage: p}'>
+                <td>{{test.testId}}</td>
+                <td>{{test.testName}}</td>
+                <td>
+                  <button>Select</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

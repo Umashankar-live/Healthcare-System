@@ -12,20 +12,20 @@
         <li
           [ngStyle]='{"background": router.url == "/user/dashboard/userCenter/view" ? "rgba(255,255,255,0.2)" : "darkslategrey"}'
           title="Available Center">
-          <a routerLink='/user/dashboard/userCenter/view'><i class="fas fa-clinic-medical"></i>&nbsp; Available
-            Center</a>
+          <a routerLink='/user/dashboard/userCenter/view'><i class="fas fa-file-medical"></i>&nbsp; Make Appointment</a>
         </li>
-        <li
+        <!-- <li
           [ngStyle]='{"background": router.url == "/user/dashboard/MakeAppointment" ? "rgba(255,255,255,0.2)" : "darkslategrey"}'
           title="Make Appointment">
           <a routerLink='/user/dashboard/MakeAppointment'><i class="fas fa-file-medical"></i>&nbsp; Make Appointment</a>
-        </li>
-        <hr>
+        </li> -->
+        <!-- <hr> -->
         <li
           [ngStyle]='{"background": router.url == "/user/dashboard/viewStatus" ? "rgba(255,255,255,0.2)" : "darkslategrey"}'
           title="View Status">
           <a routerLink='/user/dashboard/viewStatus'><i class="fa fa-eye"></i>&nbsp; View Status</a>
         </li>
+        <hr>
         <li
           [ngStyle]='{"background": router.url == "/user/dashboard/PersonalDetails/:userId" ? "rgba(255,255,255,0.2)" : "darkslategrey"}'
           title="View all centers">

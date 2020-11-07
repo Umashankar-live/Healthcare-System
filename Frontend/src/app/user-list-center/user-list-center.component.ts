@@ -71,6 +71,10 @@ export class UserListCenterComponent implements OnInit {
 
   }
 
+  selectTestFromCenter(centerId: number){
+    this.route.navigate(['/user/dashboard/selectTest/',centerId]);
+  }
+
   //Sort by id
   sortById() {
     this.centers.sort(this.sortByProperty('centerId'))

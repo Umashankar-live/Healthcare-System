@@ -28,5 +28,9 @@ export class CenterService {
     return this.http.get<CenterModel>("http://localhost:9003/admin/diagnosticCenter/searchCenter/" +index);
   }
 
+  fetchTestsByCenterId(centerId: number){
+    
+  }
+
   constructor(private http : HttpClient) { }
 }
