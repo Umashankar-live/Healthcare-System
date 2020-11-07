@@ -256,6 +256,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Override
 	public Appointments makeAppointment(Appointments appointment1) {
 
+		System.out.println(appointment1.getDatetime());
 		Appointments appointment = new Appointments();
 
 		appointment.setAppointmentId(null);
@@ -299,7 +300,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		appointment.setUserName(userExists.getUserName());
 
 		if (validateDate(appointment1.getDatetime().toLocalDate())) {
-
+            System.out.println(appointment1.getDateTime().toLocalTime());  
 			appointment.setDatetime(appointment1.getDatetime());
 			appointment = appointmentRepository.save(appointment);
 		} else {

@@ -3,6 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CenterModel } from 'src/models/center.model';
 import { Tests } from 'src/models/test.model';
 import { CenterService } from 'src/service/center.service';
+import {AppointmentService} from 'src/service/appointment.service';
+import { AppointmentModel } from 'src/models/appointment.model';
 
 
 @Component({
@@ -14,8 +16,14 @@ export class UserListTestComponent implements OnInit {
 
   tests: Tests[] = [];
   tests1: Tests[] = [];
+  testId : number ;
   centerId: number;
   center: CenterModel;
+  appointment: AppointmentModel;
+  msg :string;
+  errormsg: string;
+
+
 
   //Flags required for interactive UI
   isAdded: boolean = null
@@ -27,9 +35,9 @@ export class UserListTestComponent implements OnInit {
   sortedByName: boolean = null
   sortedByDes: boolean = null
   isDeleteError: boolean = false
-
-  constructor(private route: ActivatedRoute, private router: Router, private service: CenterService) {
-
+  
+  constructor(private route: ActivatedRoute, private router: Router, private service: CenterService, private appointmentService : AppointmentService) {
+    this.appointment = new AppointmentModel();
   }
 
   ngOnInit() {
@@ -37,11 +45,11 @@ export class UserListTestComponent implements OnInit {
     this.route.params.subscribe(x => this.centerId = x['centerId']);
     console.log(this.centerId);
     this.service.fetchCenterByCenterId(this.centerId).subscribe(data => {
-    this.center = data;
-    this.tests= this.center.listOfTests
-    this.tests1= this.center.listOfTests
-    console.log(this.center);
-    this.isLoading = false
+      this.center = data;
+      this.tests = this.center.listOfTests
+      this.tests1 = this.center.listOfTests
+      console.log(this.center);
+      this.isLoading = false
     });
   }
 
@@ -75,6 +83,33 @@ export class UserListTestComponent implements OnInit {
     this.tests1 = this.tests.filter(test => test.testName.includes(event.target.value))
     if (event.target.value == '' || event.target.value == undefined)
       this.tests1 = this.tests
+  }
+
+
+  saveTestId(id: number){
+
+    this.testId = id ;
+
+  }
+
+
+  appointmentUser(){
+  
+    this.appointment.userId = sessionStorage.getItem('custId');
+    this.appointment.centerId = this.centerId ;
+    this.appointment.testId = this.testId ;
+    console.log(this.appointment.dateTime);
+    this.appointmentService.makeAppointment(this.appointment).subscribe(data => {
+      console.log(data);
+      this.isAdded = true ;
+      
+    },error => {this.isErrorUpdating = true; });   
+
+  }
+
+  routerViewStatus(){
+    this.router.navigate(['/user/dashboard/viewStatus']);
+     
   }
 
   logout() {

@@ -44,7 +44,7 @@ public class Appointments {
 
 	@NotNull(message = "Please specify a date for appointment")
 	@Column(name = "Date")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	//@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss" ,timezone = "")
 	private LocalDateTime dateTime;
 
 	public Integer getAppointmentId() {

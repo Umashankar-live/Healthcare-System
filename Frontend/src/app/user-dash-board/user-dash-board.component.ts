@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {AppointmentService} from 'src/service/appointment.service'
 
 @Component({
   selector: 'app-user-dash-board',
@@ -18,11 +19,12 @@ export class UserDashBoardComponent implements OnInit {
   isLoadingPending: boolean = true
   isLoadingCenters: boolean = true
   userId : string
+  isAppointmentExisit: boolean =true;
 
 
   
 
-  constructor(public router: Router) { }
+  constructor(private router: Router , private service: AppointmentService) { }
 
   ngOnInit():void {
     
@@ -58,6 +60,21 @@ export class UserDashBoardComponent implements OnInit {
       this.sidebarClass = ""
       this.menuToggleClass = "container1 clickable"
     }
+  }
+
+
+  checkAppointmentexist(){
+    
+    this.service.checkUserAppointment(sessionStorage.getItem('custId')).subscribe(
+      data => {
+        if (data == null)
+        this.isAppointmentExisit = true ;
+        else
+        this.isAppointmentExisit= false ;
+      }
+    )
+
+    
   }
 
 }

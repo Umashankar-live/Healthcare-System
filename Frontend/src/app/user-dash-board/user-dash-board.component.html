@@ -12,7 +12,7 @@
         <li
           [ngStyle]='{"background": router.url == "/user/dashboard/userCenter/view" ? "rgba(255,255,255,0.2)" : "darkslategrey"}'
           title="Available Center">
-          <a routerLink='/user/dashboard/userCenter/view'><i class="fas fa-file-medical"></i>&nbsp; Make Appointment</a>
+          <a (click)="checkAppointmentexist()" *ngIf='isAppointmentExisit' routerLink='/user/dashboard/userCenter/view'><i class="fas fa-file-medical"></i>&nbsp; Make Appointment</a>
         </li>
         <!-- <li
           [ngStyle]='{"background": router.url == "/user/dashboard/MakeAppointment" ? "rgba(255,255,255,0.2)" : "darkslategrey"}'
