@@ -49,20 +49,20 @@ export class PersonalDetailsComponent implements OnInit {
       user.userName = form.value.userNAme
       user.age = form.value.age
       user.email = form.value.email
-      user.gender= form.value.gender
-      user.mobileNo =form.value.mobile
+      user.gender = form.value.gender
+      user.mobileNo = form.value.mobile
       user.password = form.value.password
-     // user.userId = sessionStorage.getItem('custId')
+      // user.userId = sessionStorage.getItem('custId')
 
-      this.service.updateUser(user,sessionStorage.getItem('custId')).subscribe(res => {
+      this.service.updateUser(user, sessionStorage.getItem('custId')).subscribe(res => {
         console.log(res)
         this.isUpdated = true
-  
+
       })
     }
   }
 
-  reload(){
+  reload() {
     this.ngOnInit();
   }
 

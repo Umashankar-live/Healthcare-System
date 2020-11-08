@@ -9,27 +9,26 @@ import { TestService } from '../../service/test.service';
   styleUrls: ['./add-test.component.css']
 })
 export class AddTestComponent implements OnInit {
-  test : Tests;
-  isadded : boolean = false
-  constructor(private router : Router, private service : TestService) {
+  test: Tests;
+  isadded: boolean = false
+  constructor(private router: Router, private service: TestService) {
     this.test = new Tests();
-   }
+  }
 
   ngOnInit() {
   }
 
-  saveTest(){
+  saveTest() {
     console.log(this.test.testName);
-    
-    this.service.addTest(this.test).subscribe(response=>{
+
+    this.service.addTest(this.test).subscribe(response => {
       this.isadded = true
-      //this.router.navigate(['admin/dashboard/test/view']);   
     });
-    
-    
+
+
   }
 
-  logout(){
+  logout() {
     sessionStorage.clear();
     this.router.navigate(['login']);
   }

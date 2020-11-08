@@ -52,14 +52,6 @@ export class ListTestComponent implements OnInit {
     )
   }
 
-
-  // reloadData() {
-  //   this.service.fetchAllTests().subscribe(data => {
-  //     this.tests = data;
-  //     console.log(this.tests);
-  //   });
-  // }
-
   remove(testId: number) {
     var ans = confirm("Are you sure you want to delete?");
     if (ans) {
