@@ -1,5 +1,6 @@
 <div id="wrapper" class={{sidebarClass}} style="overflow-x: hidden;">
   <div class="row">
+
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav clickable"> <br>
@@ -12,7 +13,7 @@
         <li
           [ngStyle]='{"background": router.url == "/user/dashboard/userCenter/view" ? "rgba(255,255,255,0.2)" : "darkslategrey"}'
           title="Available Center">
-          <a (click)="checkAppointmentexist()" ><i class="fas fa-file-medical"></i>&nbsp; Make Appointment</a>
+          <a (click)="checkAppointmentexist()"><i class="fas fa-file-medical"></i>&nbsp; Make Appointment</a>
         </li>
         <!-- <li*ngIf='isAppointmentExisit' routerLink='/user/dashboard/userCenter/view'
           [ngStyle]='{"background": router.url == "/user/dashboard/MakeAppointment" ? "rgba(255,255,255,0.2)" : "darkslategrey"}'
@@ -29,7 +30,7 @@
         <li
           [ngStyle]='{"background": router.url == "/user/dashboard/PersonalDetails/:userId" ? "rgba(255,255,255,0.2)" : "darkslategrey"}'
           title="View all centers">
-          <a (click)= getPersonalDetail() ><i class="fas fa-procedures"></i>&nbsp; Personal Details</a>
+          <a (click)=getPersonalDetail()><i class="fas fa-procedures"></i>&nbsp; Personal Details</a>
         </li>
 
         <hr>
@@ -39,6 +40,7 @@
             Logout</button>
         </li>
       </ul>
+
       <!-- /#sidebar-wrapper -->
     </div>
     <div class="col-md-12">
@@ -55,4 +57,5 @@
       <!-- /#page-content-wrapper -->
     </div>
   </div>
+<div *ngIf='router.url == "/user/dashboard"'>&nbsp;&nbsp;<h1 class="display-4" style="font-family: 'Times New Roman', Times, serif;">Welcome {{name}}... !!!</h1></div>
 </div>

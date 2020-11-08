@@ -1,4 +1,4 @@
-<body>
+<!-- <body>
 <h2>Your Details : </h2>
 
 <div class="container">
@@ -25,5 +25,34 @@
     </tr>
   </table>
  
-</div> <!-- /.container-fluid -->
-</body>
+</div>  -->
+
+
+
+<div class="container">
+
+  <div>
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <div class="card bg-transparent">
+          <div class="card-header">
+            <p class="h1" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"><i class="fas fa-user
+              "></i> Your Details</p>
+          </div>
+          <pre style="font-family: 'Times New Roman', Times, serif;">
+             <h4>    <b>User Name :</b> {{user.userName}} </h4>
+             <h4>    <b>Email Id  :</b> {{user.email}} </h4> 
+             <h4>    <b>Age       :</b> {{user.age}} </h4> 
+             <h4>    <b>Gender    :</b> {{user.gender}} </h4> 
+             <h4>    <b>Mobile No :</b> {{user.mobileNo}} </h4>
+             
+            <button data-toggle="modal" data-target="#updateModal" (click) = ''  type="button" class="btn btn-success"><i class="far fa-edit"></i> Update Details</button> 
+          </pre>
+
+        </div>
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+  </div>
+</div>

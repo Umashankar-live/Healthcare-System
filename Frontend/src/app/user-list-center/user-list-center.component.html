@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <h1 class="text-center"><i class="fas fa-clinic-medical"></i> Select Diagnostic Centers</h1>
+          <h1 style="font-family: 'Times New Roman', Times, serif;" class="text-center"><i class="fas fa-clinic-medical"></i> Select Diagnostic Centers</h1>
         </div>
         <div style="overflow-x: auto;">
           <div class="container">
@@ -53,7 +53,7 @@
                 <td>{{center.centerName}}</td>
                 <td data-toggle="tooltip"><i (click)='getDetailsById(center.centerId)' class="fas fa-book-medical"
                     data-toggle="modal" data-target="#detailModal"></i></td>
-                <td><button (click)='selectTestFromCenter(center.centerId)'>Select</button></td>
+                <td><button class="btn btn-labeled btn-success" (click)='selectTestFromCenter(center.centerId)'><span class="btn-label"><i class="fas fa-check-circle"></i></span>Select</button></td>
               </tr>
             </tbody>
           </table>

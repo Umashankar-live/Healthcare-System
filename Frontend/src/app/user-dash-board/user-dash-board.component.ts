@@ -20,14 +20,15 @@ export class UserDashBoardComponent implements OnInit {
   isLoadingPending: boolean = true
   isLoadingCenters: boolean = true
   userId: string
+  name: string
   isAppointmentExisit: boolean = true;
   appointment: AppointmentModel;
 
 
 
   constructor(private router: Router, private service: AppointmentService) {
-    this.appointment=new AppointmentModel();
-   }
+    this.appointment = new AppointmentModel();
+  }
 
   ngOnInit(): void {
 
@@ -37,22 +38,23 @@ export class UserDashBoardComponent implements OnInit {
           redirect: true
         }
       })
+    this.name = sessionStorage.getItem('uName');
+    console.log("Name = "+this.name);
+    this.service.checkUserAppointment(sessionStorage.getItem('custId')).subscribe(
+      data => {
+        this.appointment = data;
+        console.log(data);
+        /* if (data == null) {
+           console.log(data);
+           this.router.navigate(['/user/dashboard/userCenter/view']);
+         }
+         else {
+           alert("You can add only one appointment at a time.....")
+           this.router.navigate(['/user/dashboard/viewStatus/', this.appointment.appointmentId]);
+         }*/
 
-      this.service.checkUserAppointment(sessionStorage.getItem('custId')).subscribe(
-        data => {
-          this.appointment=data;
-          console.log(data);
-         /* if (data == null) {
-            console.log(data);
-            this.router.navigate(['/user/dashboard/userCenter/view']);
-          }
-          else {
-            alert("You can add only one appointment at a time.....")
-            this.router.navigate(['/user/dashboard/viewStatus/', this.appointment.appointmentId]);
-          }*/
-  
-        }
-      )
+      }
+    )
 
   }
 
@@ -86,7 +88,7 @@ export class UserDashBoardComponent implements OnInit {
 
     this.service.checkUserAppointment(sessionStorage.getItem('custId')).subscribe(
       data => {
-        this.appointment=data;
+        this.appointment = data;
         console.log(data);
         if (data == null) {
           console.log(data);
@@ -103,8 +105,13 @@ export class UserDashBoardComponent implements OnInit {
 
   }
 
-  viewStatus(){
-    this.router.navigate(['/user/dashboard/viewStatus/', this.appointment.appointmentId]);
+  viewStatus() {
+    if (this.appointment == null) {
+      alert("You Don't have appointment registered yet.. !!!");
+      this.router.navigate(['user/dashboard']);
+    }
+    else
+      this.router.navigate(['/user/dashboard/viewStatus/', this.appointment.appointmentId]);
   }
 
 }

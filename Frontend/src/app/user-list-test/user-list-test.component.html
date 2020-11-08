@@ -47,8 +47,8 @@
                 <td>{{test.testId}}</td>
                 <td>{{test.testName}}</td>
                 <td>
-                  <button data-toggle="modal" data-target="#AppointmentModal"
-                    (click)=saveTestId(test.testId)>Select</button>
+                  <button class="btn btn-labeled btn-success" data-toggle="modal" data-target="#AppointmentModal"
+                    (click)=saveTestId(test.testId)><span class="btn-label"><i class="fas fa-check-circle"></i></span>Select</button>
                 </td>
               </tr>
             </tbody>
@@ -65,7 +65,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <div>
-            <h1 class="modal-title" id="updateModalLabel"><i class="fas fa-laptop-medical "></i> Select Date & Time
+            <h1 style="font-family: 'Times New Roman', Times, serif;" class="modal-title" id="updateModalLabel"><i class="fas fa-calendar-plus"></i> Select Date & Time
 
             </h1>
           </div>
@@ -79,12 +79,11 @@
             <button href="#" class="close" (click)='isAdded = false'>&times;</button>
             <small><strong>SUCCESS !</strong> Your Appointment is Fixed.</small>
           </div>
+
           <div class="alert alert-danger" *ngIf='isErrorUpdating'>
             <button href="#" class="close" (click)='isErrorUpdating = false'>&times;</button>
             <small><strong>Failed !</strong> Enter Valid Date (We are closed on weekend and Please select date of today or any day within 30 days of today)... !!.</small>
           </div>
-           <small class="text-danger">{{errormsg}}</small>
-           <br>
           <form #appointmentform=ngForm (ngSubmit)="appointmentUser();appointmentform.reset();">
 
             <div class="form-group">

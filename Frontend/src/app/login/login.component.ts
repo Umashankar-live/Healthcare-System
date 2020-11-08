@@ -105,7 +105,7 @@ export class LoginComponent implements OnInit {
           }
           else if (res.role == "user") {
             sessionStorage.setItem('custId', res.userId)
-            sessionStorage.setItem('uName', window.btoa(res.userName))
+            sessionStorage.setItem('uName', res.userName)
             sessionStorage.setItem('userType', window.btoa("user"))
             this.router.navigate(['user/dashboard'])
           }

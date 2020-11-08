@@ -10,6 +10,7 @@
         <th>Test Name</th>
         <th>Status </th>
         <th>Date And Time </th>
+        <td><b>Action</b></td>
              
   
       </tr>
@@ -20,7 +21,8 @@
         <td>{{appointment.centerName}}</td>
         <td>{{appointment.testName}}</td>
         <td>{{appointment.status}}</td>
-        <td>{{appointment.dateTime}}</td>
+        <td>{{appointment.dateTime |  date:'medium'}}</td>
+        <td> <i class="fas fa-trash clickable" (click)='remove(appointment.appointmentId)' ></i></td>
   
       </tr>
     </table>
