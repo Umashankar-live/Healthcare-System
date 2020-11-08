@@ -1,31 +1,25 @@
-<body>
-  <h2>Status</h2>
-  
-  <div class="container">
-    <table class="table table-hover table-striped custab ">
-      <tr>
-        <th>Appointment ID </th>
-        <th>User Name </th>
-        <th>Center Name </th>
-        <th>Test Name</th>
-        <th>Status </th>
-        <th>Date And Time </th>
-        <td><b>Action</b></td>
+<div>
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-8">
+      <div class="card bg-transparent">
+        <div class="card-header">
+          <p class="h1" style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;"><i class="fa fa-eye
+              "></i>&nbsp; View Status</p>
+        </div>
+        <pre style="font-family: 'Times New Roman', Times, serif;">
+             <h4>    <b>Appointment Id :</b> {{appointment.appointmentId}} </h4>
+             <h4>    <b>User Name : </b> {{appointment.userName}} </h4> 
+             <h4>    <b>Center Name : </b> {{appointment.centerName}} </h4> 
+             <h4>    <b>Test Name : </b> {{appointment.testName}} </h4> 
+             <h4>    <b>Current Status :</b> {{appointment.status}} </h4>
+             <h4>    <b>Date And Time :</b> {{appointment.dateTime |  date:'medium'}} </h4>
              
-  
-      </tr>
-      <tr>
-       
-        <td>{{appointment.appointmentId}}</td>
-        <td>{{appointment.userName}}</td>
-        <td>{{appointment.centerName}}</td>
-        <td>{{appointment.testName}}</td>
-        <td>{{appointment.status}}</td>
-        <td>{{appointment.dateTime |  date:'medium'}}</td>
-        <td> <i class="fas fa-trash clickable" (click)='remove(appointment.appointmentId)' ></i></td>
-  
-      </tr>
-    </table>
-   
-  </div> <!-- /.container-fluid -->
-  </body>
+            <button (click)='remove(appointment.appointmentId)' type="button" class="btn btn-danger"><i class="fas fa-trash clickable"></i>&nbsp; Cancel </button> 
+          </pre>
+
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

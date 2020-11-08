@@ -63,10 +63,10 @@ public class UserController {
 		newUser.setMobileNo(user.getMobileNo());
 		newUser.setEmail(user.getEmail());
 		newUser.setGender(user.getGender());
-		newUser.setRole(user.getRole());
+		newUser.setRole("user");
 		newUser.setAge(user.getAge());
-		User user1=this.userService.updateUser(newUser);
 		return this.userService.updateUser(newUser);
+		
 	}
 	
 	

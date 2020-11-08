@@ -61,18 +61,20 @@ export class ListTestComponent implements OnInit {
   // }
 
   remove(testId: number) {
-   
-    this.service.deleteTest(testId).subscribe((res) => {
+    var ans = confirm("Are you sure you want to delete?");
+    if (ans) {
+      this.service.deleteTest(testId).subscribe((res) => {
 
-      if (res == -1)
-        this.isDeleteError = true
+        if (res == -1)
+          this.isDeleteError = true
 
-      else {
-        this.tests = []
-        this.ngOnInit()
-      }
-    })
+        else {
 
+          this.tests = []
+          this.ngOnInit()
+        }
+      })
+    }
 
   }
 

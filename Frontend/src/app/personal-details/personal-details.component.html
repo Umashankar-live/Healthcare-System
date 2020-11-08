@@ -1,36 +1,4 @@
-<!-- <body>
-<h2>Your Details : </h2>
-
 <div class="container">
-  <table class="table table-hover table-striped custab ">
-    <tr>
-      <th>User Name </th>
-      <th>Email </th>
-      <th>Age </th>
-      <th>Gender</th>
-      <th>Phone no </th>
-      <th>Password </th>
-           
-
-    </tr>
-    <tr>
-     
-      <td>{{user.userName}}</td>
-      <td>{{user.email}}</td>
-      <td>{{user.age}}</td>
-      <td>{{user.gender}}</td>
-      <td>{{user.mobileNo}}</td>
-      <td>{{user.password}}</td>
-
-    </tr>
-  </table>
- 
-</div>  -->
-
-
-
-<div class="container">
-
   <div>
     <div class="row">
       <div class="col-md-3"></div>
@@ -47,7 +15,14 @@
              <h4>    <b>Gender    :</b> {{user.gender}} </h4> 
              <h4>    <b>Mobile No :</b> {{user.mobileNo}} </h4>
              
-            <button data-toggle="modal" data-target="#updateModal" (click) = ''  type="button" class="btn btn-success"><i class="far fa-edit"></i> Update Details</button> 
+            <button data-toggle="modal" data-target="#updateModal" (click)='
+            userName = user.userName;
+            email = user.email;
+            age = user.age;
+            gender = user.gender;
+            mobile = user.mobileNo;
+            password = user.password;
+            '  type="button" class="btn btn-success"><i class="far fa-edit"></i> Update Details</button> 
           </pre>
 
         </div>
@@ -55,4 +30,89 @@
       <div class="col-md-3"></div>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title" id="updateModalLabel"><i class="fa fa-edit"></i> Edit User
+          </h1>
+
+          <button (click)="reload()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        
+        <div class="alert alert-success" *ngIf='isUpdated'>
+          <button href="#" class="close" (click)='isUpdated = false'>&times;</button>
+          <small><strong>SUCCESS !</strong> Your Details Have Been Updated... !!</small>
+        </div>
+
+
+        <div class="modal-body">
+          <form #updateForm='ngForm' (submit)='onUpdate(updateForm)'>
+            <div class="card-body">
+              <div class="form-group">
+                <input type="text" placeholder="User Name" name="userNAme" class="form-control" [(ngModel)]='userName'
+                  #name="ngModel" pattern="^[A-Z][A-Za-z0-9_-]{3,19}$" required>
+                <span *ngIf='!name.valid && name.touched'>
+                  <p class="errorText">Enter User Name.</p>
+                </span>
+              </div>
+              <div class="form-group">
+                <input type="text" placeholder="Email ID" name="email" class="form-control" [(ngModel)]='email'
+                  #emailId="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" required>
+                <span *ngIf='!emailId.valid && emailId.touched'>
+                  <p class="errorText">Enter correct email Id.</p>
+                </span>
+              </div>
+              <div class="form-group">
+                <label for="radio">Gender: &nbsp;&nbsp;</label>
+                <input type="radio" name="gender" value="Male" #Gender="ngModel" [(ngModel)]="gender" required>
+                Male
+                &nbsp;&nbsp;
+                <input type="radio" name="gender" value="Female" #Gender="ngModel" [(ngModel)]="gender" required>
+                Female
+              </div>
+
+              <div class="form-group">
+                <input type="number" placeholder="Age" name="age" class="form-control" [(ngModel)]='age'
+                  #Age="ngModel"  required>
+                <span *ngIf='!Age.valid && Age.touched'>
+                  <p class="errorText">Enter Age.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <input type="text" placeholder="Mobile No." name="mobile" class="form-control" [(ngModel)]='mobile'
+                  #Mobile="ngModel"  required>
+                <span *ngIf='!Mobile.valid && Mobile.touched'>
+                  <p class="errorText">Enter Mobile.</p>
+                </span>
+              </div>
+
+              <div class="form-group">
+                <input type="text" placeholder="Password " name="password" class="form-control" [(ngModel)]='password'
+                  #passWord="ngModel" required>
+                <span *ngIf='!passWord.valid && passWord.touched'>
+                  <p class="errorText">Enter Password</p>
+                </span>
+              </div>
+
+            </div>
+            <div class="card-footer">
+              <button type="submit" [disabled]='!updateForm.valid' class="btn btn-primary"><i class="fa fa-sync"
+                  aria-hidden="true"></i>
+                Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>

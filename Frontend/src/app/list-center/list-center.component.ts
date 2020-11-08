@@ -58,13 +58,13 @@ export class ListCenterComponent implements OnInit {
 
 
   remove(centerId: number) {
-    // if (this.tests.filter(test => test.testId == testId)[0].status == 'allocated')
-    // this.isDeleteError = true
-
-    this.service.deleteCenter(centerId).subscribe((res) => {
-      this.centers = []
-      this.ngOnInit()
-    })
+    var ans = confirm("Are you sure you want to delete?");
+    if (ans) {
+      this.service.deleteCenter(centerId).subscribe((res) => {
+        this.centers = []
+        this.ngOnInit()
+      })
+    }
   }
 
   getDetailsById(centerId: number) {

@@ -12,6 +12,7 @@ export class LoginserviceService {
 
 
 
+
   login_url = "http://localhost:9002/healthcaresystem/login";
   registration_url = "http://localhost:9008/user/addUser";
   getUser_url = "http://localhost:9008/user/searchUser/"
@@ -30,6 +31,10 @@ export class LoginserviceService {
 
   public getUserByUserId(userId: string) {
     return this.http.get<User>(this.getUser_url + userId);
+  }
+
+  updateUser(user: User, userId: string) {
+    return this.http.put<User>("http://localhost:9008/user/updateUser/"+userId, user);
   }
 
 }

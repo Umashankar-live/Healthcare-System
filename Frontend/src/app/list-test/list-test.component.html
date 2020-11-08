@@ -3,8 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <div class="form-group">
-          <h1 class="text-center"><i class="fas fa-notes-medical
-            "></i> Tests</h1>
+          <h1 class="text-center"><i class="fas fa-notes-medical"></i> Tests List</h1>
         </div>
         <div style="overflow-x: auto;">
           <div class="container">
@@ -37,16 +36,13 @@
               <label class="float-right" style="padding-top: 0.5rem;">Items per
                 page:&nbsp;&nbsp;</label>
             </caption>
-            <thead  class="clickable">
+            <thead class="clickable">
               <td (click)='sortById()'>
                 <i class="fas fa-sort" *ngIf='sortedById'></i> &nbsp;Test Id
               </td>
               <td (click)='sortByName()'>
                 <i class="fas fa-sort" *ngIf='sortedByName'></i> &nbsp;Test Name
               </td>
-              <!-- <td (click)='sortByDes()'>
-                <i class="fas fa-sort" *ngIf='sortedByDes'></i> &nbsp;Description
-              </td> -->
 
               <td>Action</td>
             </thead>
@@ -62,7 +58,7 @@
           </table>
           <pagination-controls (pageChange)="p = $event"></pagination-controls>
         </div>
-        
+
       </div>
     </div>
   </div>
