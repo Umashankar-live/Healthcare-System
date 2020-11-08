@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.bean.Appointments;
+import com.cg.bean.Tests;
 import com.cg.service.AppointmentService;
 
 import io.swagger.annotations.Api;
@@ -149,23 +151,28 @@ public class AppointmentController {
 
 		return appointmentService.findallAppointments();
 	}
-	
+
 	// URL=http://localhost:9010/appointments/getPendingCount
-		@GetMapping("/getPendingCount")
-		@ApiOperation(value = "getPendingCount", nickname = "PendingCount")
-		@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
-				@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
-		public int getPendingCount() {
+	@GetMapping("/getPendingCount")
+	@ApiOperation(value = "getPendingCount", nickname = "PendingCount")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
+			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
+	public int getPendingCount() {
 
 		List<Appointments> pending = appointmentService.findallAppointments();
-		int pendingCount = pending.stream().filter(c -> c.getStatus().equalsIgnoreCase("pending")).collect(Collectors.toList()).size();
-		
-		System.out.println(pendingCount);
-		return pendingCount ;
-		}
-		
-	
-	
-	
+		int pendingCount = pending.stream().filter(c -> c.getStatus().equalsIgnoreCase("pending"))
+				.collect(Collectors.toList()).size();
 
+		System.out.println(pendingCount);
+		return pendingCount;
+	}
+
+	// URL=http://localhost:9010/appointments/deleteAppointment/{appointmentId}
+	@ApiOperation(value = "Delete Appointment", nickname = "deleteAppointment")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Tests.class),
+			@ApiResponse(code = 500, message = "Failure", response = Tests.class) })
+	@DeleteMapping(value = "/deleteAppointment/{appointmentId}")
+	public Integer deleteAppointment(@PathVariable Integer appointmentId) {
+		return this.appointmentService.deleteAppointment(appointmentId);
+	}
 }

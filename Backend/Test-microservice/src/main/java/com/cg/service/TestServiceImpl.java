@@ -35,7 +35,6 @@ public class TestServiceImpl implements TestServiceInterface {
 		try {
 			this.testDao.deleteById(testId);
 		} catch (Exception e) {
-			e.printStackTrace();
 			return -1 ;
 		}
 		

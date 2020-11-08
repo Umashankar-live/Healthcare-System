@@ -34,8 +34,6 @@ import com.cg.bean.User;
 import com.cg.dao.AppointmentRepository;
 import com.cg.exception.NoValueFoundException;
 import com.cg.exception.NotPossibleException;
-import com.twilio.Twilio;
-import com.twilio.type.PhoneNumber;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -52,13 +50,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 	String diagnosticCenterNotPresent = "No diagnostic center present with this diagnostic center Id";
 	String userNotPresent = "No user present with this user Id";
 
-	private final static String ACCOUNT_SID = "AC0e5745bfb0f3806d72ed37877b3417f3";
-	private final static String AUTH_ID = "414d33ee360d47c1a0ddef8bb87fed5d";
-
-	static {
-		Twilio.init(ACCOUNT_SID, AUTH_ID);
-	}
-
 	@Override
 	public Appointments saveAppointments(Appointments a) {
 		return appointmentRepository.save(a);
@@ -72,19 +63,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 	@Override
 	public Appointments findAppointmentsbyId(Integer a) {
 		return appointmentRepository.findByAppointmentId(a);
-	}
-
-	@Override
-	public void run(String number, String centername, String testname, LocalDateTime d) throws Exception {
-		String s = "+91" + number;
-		com.twilio.rest.api.v2010.account.Message.creator(new PhoneNumber(s), new PhoneNumber("+12018856810"),
-				"Your appointment is approved for test:" + testname + ", at center:" + centername + ", on date :" + d)
-				.create();
-		// for twilio calls
-		// Call.creator(new PhoneNumber("<to-number>"), new
-		// PhoneNumber("<from-number>"),
-		// new URI("http://demo.twilio.com/docs/voice.xml")).create();
-
 	}
 
 	private void sendmail(String email, String centername, String testname, LocalDateTime d)
@@ -123,7 +101,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		 * 
 		 * attachPart.attachFile("C:/Users/Isha Pawar/Desktop/New Project/approved.jpg"
 		 * ); multipart.addBodyPart(attachPart); msg.setContent(multipart);
-		   Transport.send(msg);
+		 * Transport.send(msg);
 		 */ }
 
 	// Method to check appointment Status
@@ -155,7 +133,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		}
 
 		Appointments appointmentList = appointmentRepository.findByUserId(userId);
-		if (appointmentList ==null) {
+		if (appointmentList == null) {
 			return null;
 		}
 		// return appointmentList.stream().map(a -> new
@@ -269,7 +247,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		}
 
 		// to ensure no user raises 2 appointments
-		if (appointmentRepository.findByUserId(appointment1.getUserId())!=null) {
+		if (appointmentRepository.findByUserId(appointment1.getUserId()) != null) {
 			logger.warn(userNotPresent);
 			throw new NoValueFoundException("particular user has already raised an appointment");
 		}
@@ -299,7 +277,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		appointment.setUserName(userExists.getUserName());
 
 		if (validateDate(appointment1.getDatetime().toLocalDate())) {
-            System.out.println(appointment1.getDateTime().toLocalTime());  
+			System.out.println(appointment1.getDateTime().toLocalTime());
 			appointment.setDatetime(appointment1.getDatetime());
 			appointment = appointmentRepository.save(appointment);
 		} else {
@@ -313,7 +291,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 	public Appointments approveAppointment(Integer appointmentId) throws Exception {
 
 		Appointments appointment = appointmentRepository.findByAppointmentId(appointmentId);
-		
+
 		if (appointment == null) {
 			logger.warn(appointmentNotPresent);
 			throw new NoValueFoundException(appointmentNotPresent);
@@ -333,19 +311,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 					&& Duration.between(dateTime.toLocalTime(), LocalDateTime.now().toLocalTime()).toMinutes() >= 30
 					&& dateTime.toLocalTime().isAfter(LocalTime.now())
 					|| dateTime.isAfter(LocalDateTime.now()) && !dateTime.toLocalDate().equals(LocalDate.now()))) {
-				appointment.setStatus("approved"); // can be also given a agrument as (Boolean.TRUE) if it isnt
-														// approving the
-				// request , try changing this
+				appointment.setStatus("approved");
 				appointment = appointmentRepository.save(appointment);
 				Integer intObj = new Integer(appointment.getUserId());
 				User user = restTemplate.getForObject("http://localhost:9008/user/searchUser/" + intObj, User.class);
 				sendmail(user.getEmail(), appointment.getCenterName(), appointment.getTestName(),
 						appointment.getDatetime());
-				// com.twilio.rest.api.v2010.account.Message.creator(new
-				// PhoneNumber("9822519697"),
-				// new PhoneNumber("7775014191"), "Your appointment is approved").create();
-//				run(user.getMobileNo(), appointment.getCenterName(), appointment.getTestName(),
-//						appointment.getDatetime());
 			} else {
 				logger.warn("Appointment date is missed");
 				throw new NotPossibleException("Appointment date and time is already missed!!");
@@ -369,5 +340,16 @@ public class AppointmentServiceImpl implements AppointmentService {
 		writer.close();
 
 		return "exported";
+	}
+
+	@Override
+	public Integer deleteAppointment(Integer testId) {
+		try {
+			this.appointmentRepository.deleteById(testId);
+		} catch (Exception e) {
+			return -1;
+		}
+
+		return 1;
 	}
 }
