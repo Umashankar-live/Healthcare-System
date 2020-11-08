@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Login } from 'src/models/login.model';
 import { User } from 'src/models/user.model';
 import { LoginserviceService } from 'src/service/loginservice.service';
+import {AuthService} from 'src/service/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +31,8 @@ export class LoginComponent implements OnInit {
   regType: string = "password"
   errMsg: string = "Please enter correct credential.."
 
-  constructor(private router: Router, private loginservice: LoginserviceService, private route: ActivatedRoute) {
+  constructor(private router: Router, private loginservice: LoginserviceService, private route: ActivatedRoute,
+    private Auth: AuthService) {
     this.user = new User();
     this.userr = new User();
     this.user.gender = null;
@@ -38,12 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParamMap.subscribe(
-      args => {
-        if (args.get('redirect'))
-          this.isInvalidAttempt = true
-      }
-    )
+    
   }
 
 
@@ -100,6 +97,7 @@ export class LoginComponent implements OnInit {
           else if (res.role == "admin") {
             sessionStorage.setItem('custId', res.userId)
             sessionStorage.setItem('userType', window.btoa("admin"))
+            this.Auth.setLoggedIn(true);
             this.router.navigate(['admin/dashboard'])
 
           }
@@ -107,6 +105,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('custId', res.userId)
             sessionStorage.setItem('uName', res.userName)
             sessionStorage.setItem('userType', window.btoa("user"))
+            this.Auth.setLoggedIn(true);
             this.router.navigate(['user/dashboard'])
           }
         }

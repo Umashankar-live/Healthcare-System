@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { AuthGuard } from './auth.guard';
 import { Routes, RouterModule } from '@angular/router';
 import { AddCenterComponent } from './add-center/add-center.component';
 import { AddTestComponent } from './add-test/add-test.component';
@@ -12,7 +13,7 @@ import { UserListCenterComponent } from './user-list-center/user-list-center.com
 
 import { ViewStatusComponent } from './view-status/view-status.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
-import {PendingRequestComponent} from './pending-request/pending-request.component';
+import { PendingRequestComponent } from './pending-request/pending-request.component';
 import { UserListTestComponent } from './user-list-test/user-list-test.component';
 
 const routes: Routes = [
@@ -26,17 +27,17 @@ const routes: Routes = [
       { path: 'center/add', component: AddCenterComponent },
       { path: 'center/view', component: ListCenterComponent },
       { path: 'appointments/view', component: ListAppointmentsComponent },
-      {path: 'appointments/pending' , component:PendingRequestComponent}
-    ]
+      { path: 'appointments/pending', component: PendingRequestComponent }
+    ], canActivate: [AuthGuard]
   },
 
   {
     path: 'user/dashboard', component: UserDashBoardComponent, children: [
       { path: 'userCenter/view', component: UserListCenterComponent },
-      { path: 'selectTest/:centerId', component: UserListTestComponent} ,
+      { path: 'selectTest/:centerId', component: UserListTestComponent },
       { path: 'viewStatus/:appointmentId', component: ViewStatusComponent },
       { path: 'PersonalDetails/:userId', component: PersonalDetailsComponent }
-    ]
+    ], canActivate: [AuthGuard]
   },
   // { path: '**', component: ErrorComponent }
 ];

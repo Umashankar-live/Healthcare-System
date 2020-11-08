@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CenterService } from 'src/service/center.service';
 import { TestService } from 'src/service/test.service';
 import {AppointmentService} from 'src/service/appointment.service';
+import {AuthService} from 'src/service/auth.service';
 
 @Component({
   selector: 'app-admin-dash-board',
@@ -22,16 +23,17 @@ export class AdminDashBoardComponent implements OnInit {
   isLoadingCenters: boolean = true
   
 
-  constructor(public router: Router, public testService: TestService,public centerService: CenterService,public appointmentService: AppointmentService) { }
+  constructor(private router: Router, private testService: TestService,private centerService: CenterService,
+    private appointmentService: AppointmentService,private authService : AuthService) { }
 
   ngOnInit(): void {
 
-    if (window.atob(sessionStorage.getItem('userType')) !== 'admin')
+    /* if (window.atob(sessionStorage.getItem('userType')) !== 'admin')
       this.router.navigate([''], {
         queryParams: {
           redirect: true
         }
-      })
+      }) */
 
     this.testService.countTest().subscribe(
       res => {
@@ -58,6 +60,7 @@ export class AdminDashBoardComponent implements OnInit {
 
   logOut() {
     sessionStorage.clear();
+    this.authService.setLoggedIn(false);
     this.router.navigate([''])
   }
 

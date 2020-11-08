@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppointmentModel } from 'src/models/appointment.model';
 import { AppointmentService } from 'src/service/appointment.service'
+import {AuthService} from 'src/service/auth.service';
 
 @Component({
   selector: 'app-user-dash-board',
@@ -26,18 +27,18 @@ export class UserDashBoardComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private service: AppointmentService) {
+  constructor(private router: Router, private service: AppointmentService,private authService : AuthService) {
     this.appointment = new AppointmentModel();
   }
 
   ngOnInit(): void {
 
-    if (window.atob(sessionStorage.getItem('userType')) !== 'user')
+    /* if (window.atob(sessionStorage.getItem('userType')) !== 'user')
       this.router.navigate([''], {
         queryParams: {
           redirect: true
         }
-      })
+      }) */
     this.name = sessionStorage.getItem('uName');
     console.log("Name = "+this.name);
     this.service.checkUserAppointment(sessionStorage.getItem('custId')).subscribe(
@@ -68,6 +69,7 @@ export class UserDashBoardComponent implements OnInit {
 
   logOut() {
     sessionStorage.clear();
+    this.authService.setLoggedIn(false);
     this.router.navigate([''])
   }
 
