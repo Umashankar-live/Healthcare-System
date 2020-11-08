@@ -20,7 +20,7 @@ public interface AppointmentService {
 	
 	String checkAppointmentStatus(Integer appointmentId);
 
-	List<Appointments> findAppointmentsByUserId(int userId);
+	Appointments findAppointmentsByUserId(int userId);
 
 	Appointments makeAppointment(Appointments appointment);
 

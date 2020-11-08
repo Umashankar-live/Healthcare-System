@@ -18,7 +18,7 @@ public interface AppointmentRepository extends JpaRepository<Appointments, Integ
 		
 	
 	//To extract list of appointments requests per user
-	List<Appointments> findByUserId(int userId);
+	Appointments findByUserId(int userId);
 	
 	//To find list of appointment requests wrt to diagnostic center
 	List<Appointments> findByCenterId(int centerId);

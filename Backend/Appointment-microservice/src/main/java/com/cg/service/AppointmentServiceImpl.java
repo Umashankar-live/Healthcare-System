@@ -143,7 +143,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 	// Method to fetch appointments for a user with user Id
 	@Override
-	public List<Appointments> findAppointmentsByUserId(int userId) {
+	public Appointments findAppointmentsByUserId(int userId) {
 
 		System.out.println(userId);
 		Integer intObj = new Integer(userId);
@@ -154,10 +154,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 			throw new NoValueFoundException(userNotPresent);
 		}
 
-		List<Appointments> appointmentList = appointmentRepository.findByUserId(userId);
-		if (appointmentList.isEmpty()) {
-			logger.warn("No appointment made for this user ");
-			throw new NoValueFoundException("User Has not made any appointment yet");
+		Appointments appointmentList = appointmentRepository.findByUserId(userId);
+		if (appointmentList ==null) {
+			return null;
 		}
 		// return appointmentList.stream().map(a -> new
 		// AppointmentDto(a)).collect(Collectors.toList());
@@ -270,7 +269,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 		}
 
 		// to ensure no user raises 2 appointments
-		if (appointmentRepository.findByUserId(appointment1.getUserId()).isEmpty() == Boolean.FALSE) {
+		if (appointmentRepository.findByUserId(appointment1.getUserId())!=null) {
 			logger.warn(userNotPresent);
 			throw new NoValueFoundException("particular user has already raised an appointment");
 		}

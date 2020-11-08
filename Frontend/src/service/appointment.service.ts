@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AppointmentService {
-  
-  
+
+
 
   constructor(private http: HttpClient) { }
 
@@ -32,13 +32,15 @@ export class AppointmentService {
   }
 
   makeAppointment(appointment: AppointmentModel) {
-    return this.http.post<AppointmentModel>("http://localhost:9010/appointments/makeAppointment",appointment);
+    return this.http.post<AppointmentModel>("http://localhost:9010/appointments/makeAppointment", appointment);
   }
 
   checkUserAppointment(userId: string) {
-   return this.http.get<AppointmentModel[]>("http://localhost:9010/appointments/appointmentsByUserId/"+userId)
+    return this.http.get<AppointmentModel>("http://localhost:9010/appointments/appointmentsByUserId/" + userId)
   }
- 
 
+  fetchAppointmentById(appointmentId: number){
+    return this.http.get<AppointmentModel>("http://localhost:9010/appointments/searchAppointmentByAppointmentId/"+appointmentId);
+  }
 
 }

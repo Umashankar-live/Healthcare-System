@@ -35,9 +35,11 @@ export class UserListTestComponent implements OnInit {
   sortedByName: boolean = null
   sortedByDes: boolean = null
   isDeleteError: boolean = false
+  appoint: AppointmentModel;
   
   constructor(private route: ActivatedRoute, private router: Router, private service: CenterService, private appointmentService : AppointmentService) {
     this.appointment = new AppointmentModel();
+    this.appoint = new AppointmentModel();
   }
 
   ngOnInit() {
@@ -101,6 +103,8 @@ export class UserListTestComponent implements OnInit {
     console.log(this.appointment.dateTime);
     this.appointmentService.makeAppointment(this.appointment).subscribe(data => {
       console.log(data);
+      this.appointment=data;
+      this.appoint=data
       this.isAdded = true ;
       
     },error => {this.isErrorUpdating = true; });   
@@ -108,7 +112,7 @@ export class UserListTestComponent implements OnInit {
   }
 
   routerViewStatus(){
-    this.router.navigate(['/user/dashboard/viewStatus']);
+    this.router.navigate(['/user/dashboard/viewStatus/',this.appoint.appointmentId]);
      
   }
 

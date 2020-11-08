@@ -34,7 +34,7 @@ const routes: Routes = [
     path: 'user/dashboard', component: UserDashBoardComponent, children: [
       { path: 'userCenter/view', component: UserListCenterComponent },
       { path: 'selectTest/:centerId', component: UserListTestComponent} ,
-      { path: 'viewStatus', component: ViewStatusComponent },
+      { path: 'viewStatus/:appointmentId', component: ViewStatusComponent },
       { path: 'PersonalDetails/:userId', component: PersonalDetailsComponent }
     ]
   },

@@ -51,7 +51,7 @@ public class AppointmentController {
 	@ApiOperation(value = "getAppointmentByUserId", nickname = "getAppointmentByUserId")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success", response = Appointments.class),
 			@ApiResponse(code = 500, message = "Failure", response = Appointments.class) })
-	public List<Appointments> getAppointmentByUserId(@PathVariable int userId) {
+	public Appointments getAppointmentByUserId(@PathVariable int userId) {
 
 		return appointmentService.findAppointmentsByUserId(userId);
 	}
