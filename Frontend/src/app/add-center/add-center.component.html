@@ -33,10 +33,6 @@
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="alert alert-danger" *ngIf='isDeleteError'>
-                    <button href="#" class="close" (click)='isDeleteError = false'>&times;</button>
-                    <strong>Error !</strong> Allocated asset can't be removed.
-                  </div> -->
                   <table class="table table-hover table-striped table-bordered">
                     <caption *ngIf='isLoading'>
                       <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
@@ -59,10 +55,6 @@
                       <td (click)='sortByName()'>
                         <i class="fas fa-sort" *ngIf='sortedByName'></i> &nbsp;Test Name
                       </td>
-                      <!-- <td (click)='sortByDes()'>
-                        <i class="fas fa-sort" *ngIf='sortedByDes'></i> &nbsp;Description
-                      </td> -->
-
                       <td>Select</td>
                     </thead>
                     <tbody>

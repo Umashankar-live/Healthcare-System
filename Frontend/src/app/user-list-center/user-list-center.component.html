@@ -18,10 +18,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="alert alert-danger" *ngIf='isDeleteError'>
-              <button href="#" class="close" (click)='isDeleteError = false'>&times;</button>
-              <strong>Error !</strong> Allocated asset can't be removed.
-            </div> -->
           <table class="table table-hover table-striped table-bordered">
             <caption *ngIf='isLoading'>
               <div class="spinner-border"></div>&nbsp;&nbsp;Loading...
@@ -103,9 +99,6 @@
                       <tr *ngFor="let test of tests| paginate: { itemsPerPage: Size, currentPage: q} ">
                         <td>{{test.testId}}</td>
                         <td>{{test.testName}}</td>
-                        <!-- <td data-toggle="tooltip" title="Delete Test">
-                          <i class="fas fa-trash clickable" (click)='remove(test.testId)'></i>
-                        </td> -->
                       </tr>
                     </tbody>
                   </table>

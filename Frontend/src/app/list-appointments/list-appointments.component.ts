@@ -30,8 +30,8 @@ export class ListAppointmentsComponent implements OnInit {
   sortedByDes: boolean = null
   isDeleteError: boolean = false
   sortedByAppointmentId: boolean = false;
-  pendingAppoints: any[] = [] ;
-  allAppoints: any[] = [] ;
+  pendingAppoints: any[] = [];
+  allAppoints: any[] = [];
   tempAppoints: AppointmentModel[];
 
   constructor(private route: Router, private service: AppointmentService) {
@@ -48,24 +48,6 @@ export class ListAppointmentsComponent implements OnInit {
         this.sortByAppointmentId();
       }
     )
-
-    
-
-    /* this.allocationService.viewPending().subscribe(
-      res => {
-        this.pendingAllocations = res
-      }
-    )
- */
-  
-
-    /* this.activatedRoute.queryParamMap.subscribe(
-      args => {
-        if (args != null)
-          assetId = args.get('assetId')
-        this.allocation.assetId = assetId
-      }
-    ) */
   }
 
   //Sort by allocation id
@@ -105,27 +87,6 @@ export class ListAppointmentsComponent implements OnInit {
   viewRejected() {
     this.appointment = this.tempAppointment.filter(appointmentBean => appointmentBean.status == 'rejected')
   }
-
-
-
-
-  /* remove(appointmentId: number) {
-
-    this.service.deleteappointment(appointmentId).subscribe((res) => {
-
-      if (res == -1)
-        this.isDeleteError = true
-
-      else {
-        this.appointment = []
-        this.ngOnInit()
-      }
-    })
-
-
-  } */
-
-
 
 
   logout() {

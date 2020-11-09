@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CenterService } from 'src/service/center.service';
 import { TestService } from 'src/service/test.service';
-import {AppointmentService} from 'src/service/appointment.service';
-import {AuthService} from 'src/service/auth.service';
+import { AppointmentService } from 'src/service/appointment.service';
+import { AuthService } from 'src/service/auth.service';
 
 @Component({
   selector: 'app-admin-dash-board',
@@ -21,20 +21,12 @@ export class AdminDashBoardComponent implements OnInit {
   isLoadingCount: boolean = true
   isLoadingPending: boolean = true
   isLoadingCenters: boolean = true
-  
 
-  constructor(private router: Router, private testService: TestService,private centerService: CenterService,
-    private appointmentService: AppointmentService,private authService : AuthService) { }
+
+  constructor(private router: Router, private testService: TestService, private centerService: CenterService,
+    private appointmentService: AppointmentService, private authService: AuthService) { }
 
   ngOnInit(): void {
-
-    /* if (window.atob(sessionStorage.getItem('userType')) !== 'admin')
-      this.router.navigate([''], {
-        queryParams: {
-          redirect: true
-        }
-      }) */
-
     this.testService.countTest().subscribe(
       res => {
         this.testCount = res
@@ -76,7 +68,7 @@ export class AdminDashBoardComponent implements OnInit {
     }
   }
 
-  adminRefresh(){
+  adminRefresh() {
     this.ngOnInit();
     this.router.navigate(["/admin/dashboard"]);
   }

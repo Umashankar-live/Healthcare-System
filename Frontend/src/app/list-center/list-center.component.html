@@ -101,9 +101,6 @@
                       <tr *ngFor="let test of tests| paginate: { itemsPerPage: Size, currentPage: q} ">
                         <td>{{test.testId}}</td>
                         <td>{{test.testName}}</td>
-                        <!-- <td data-toggle="tooltip" title="Delete Test">
-                          <i class="fas fa-trash clickable" (click)='remove(test.testId)'></i>
-                        </td> -->
                       </tr>
                     </tbody>
                   </table>
