@@ -17,9 +17,14 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<spring-cloud.version>Hoxton.SR4</spring-cloud.version>
 	</properties>
 
 	<dependencies>
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -35,12 +40,16 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<!--This is for sending sms and voice calls -->
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
 		<dependency>
-			<groupId>com.twilio.sdk</groupId>
-			<artifactId>twilio</artifactId>
-			<version>7.16.1</version>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>2.2.5.RELEASE</version>
 		</dependency>
+
+
+
 		<!--This is for sending email -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,12 +87,13 @@
 			<version>2.9.1</version>
 		</dependency>
 		<!-- Swagger ends -->
-		<!-- By default swagger uses google's guava, we need to specify our own guava -->
+		<!-- By default swagger uses google's guava, we need to specify our own 
+			guava -->
 		<dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>25.1-jre</version>
-        </dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>25.1-jre</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
 
 		<dependency>
